@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useState } from "react";
 
 const categories = [
-  { name: "Nutrition", href: "/category/nutrition" },
-  { name: "Fitness", href: "/category/fitness" },
-  { name: "Mental Health", href: "/category/mental-health" },
-  { name: "Wellness", href: "/category/wellness" },
+  { name: "팩트체크", href: "/category/factcheck" },
+  { name: "암 환자 관리", href: "/category/cancer-care" },
+  { name: "건강정보", href: "/category/health-info" },
+  { name: "무료 AI상담", href: "/ai-consult" },
 ];
 
 export function Header() {

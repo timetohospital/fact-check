@@ -3,20 +3,20 @@ import Image from "next/image";
 
 const footerLinks = {
   categories: [
-    { name: "Nutrition", href: "/category/nutrition" },
-    { name: "Fitness", href: "/category/fitness" },
-    { name: "Mental Health", href: "/category/mental-health" },
-    { name: "Wellness", href: "/category/wellness" },
+    { name: "팩트체크", href: "/category/factcheck" },
+    { name: "암 환자 관리", href: "/category/cancer-care" },
+    { name: "건강정보", href: "/category/health-info" },
+    { name: "무료 AI상담", href: "/ai-consult" },
   ],
   company: [
-    { name: "About Us", href: "/about" },
-    { name: "Editorial Policy", href: "/editorial-policy" },
-    { name: "Contact", href: "/contact" },
+    { name: "소개", href: "/about" },
+    { name: "편집 정책", href: "/editorial-policy" },
+    { name: "문의하기", href: "/contact" },
   ],
   legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Use", href: "/terms" },
-    { name: "Medical Disclaimer", href: "/disclaimer" },
+    { name: "개인정보처리방침", href: "/privacy" },
+    { name: "이용약관", href: "/terms" },
+    { name: "의료 면책조항", href: "/disclaimer" },
   ],
 };
 
@@ -76,7 +76,7 @@ export function Footer() {
                 color: "var(--foreground)",
               }}
             >
-              Categories
+              카테고리
             </h4>
             <ul style={{ listStyle: "none" }}>
               {footerLinks.categories.map((link) => (
@@ -106,7 +106,7 @@ export function Footer() {
                 color: "var(--foreground)",
               }}
             >
-              Company
+              회사
             </h4>
             <ul style={{ listStyle: "none" }}>
               {footerLinks.company.map((link) => (
@@ -135,7 +135,7 @@ export function Footer() {
                 color: "var(--foreground)",
               }}
             >
-              Legal
+              법적 고지
             </h4>
             <ul style={{ listStyle: "none" }}>
               {footerLinks.legal.map((link) => (
