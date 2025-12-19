@@ -10,7 +10,6 @@ const footerLinks = {
   ],
   company: [
     { name: "소개", href: "/about" },
-    { name: "편집 정책", href: "/editorial-policy" },
     { name: "문의하기", href: "/contact" },
   ],
   legal: [
@@ -32,14 +31,16 @@ export function Footer() {
       <div className="container">
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            flexWrap: "wrap",
             gap: "2rem",
             padding: "3rem 0",
           }}
         >
-          {/* Brand */}
-          <div>
+          {/* Brand - 왼쪽 */}
+          <div style={{ flex: "1 1 300px", maxWidth: "350px" }}>
             <Link
               href="/"
               style={{
@@ -66,92 +67,102 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Categories */}
-          <div>
-            <h4
-              style={{
-                fontSize: "0.875rem",
-                fontWeight: 600,
-                marginBottom: "1rem",
-                color: "var(--foreground)",
-              }}
-            >
-              카테고리
-            </h4>
-            <ul style={{ listStyle: "none" }}>
-              {footerLinks.categories.map((link) => (
-                <li key={link.name} style={{ marginBottom: "0.5rem" }}>
-                  <Link
-                    href={link.href}
-                    style={{
-                      fontSize: "0.875rem",
-                      color: "var(--muted)",
-                      transition: "color 0.2s",
-                    }}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* 오른쪽 링크 그룹 */}
+          <div
+            style={{
+              display: "flex",
+              gap: "3rem",
+              flexWrap: "wrap",
+              justifyContent: "flex-end",
+            }}
+          >
+            {/* Categories */}
+            <div style={{ textAlign: "right" }}>
+              <h4
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  marginBottom: "1rem",
+                  color: "var(--foreground)",
+                }}
+              >
+                카테고리
+              </h4>
+              <ul style={{ listStyle: "none" }}>
+                {footerLinks.categories.map((link) => (
+                  <li key={link.name} style={{ marginBottom: "0.5rem" }}>
+                    <Link
+                      href={link.href}
+                      style={{
+                        fontSize: "0.875rem",
+                        color: "var(--muted)",
+                        transition: "color 0.2s",
+                      }}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Company */}
-          <div>
-            <h4
-              style={{
-                fontSize: "0.875rem",
-                fontWeight: 600,
-                marginBottom: "1rem",
-                color: "var(--foreground)",
-              }}
-            >
-              회사
-            </h4>
-            <ul style={{ listStyle: "none" }}>
-              {footerLinks.company.map((link) => (
-                <li key={link.name} style={{ marginBottom: "0.5rem" }}>
-                  <Link
-                    href={link.href}
-                    style={{
-                      fontSize: "0.875rem",
-                      color: "var(--muted)",
-                    }}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Company */}
+            <div style={{ textAlign: "right" }}>
+              <h4
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  marginBottom: "1rem",
+                  color: "var(--foreground)",
+                }}
+              >
+                회사
+              </h4>
+              <ul style={{ listStyle: "none" }}>
+                {footerLinks.company.map((link) => (
+                  <li key={link.name} style={{ marginBottom: "0.5rem" }}>
+                    <Link
+                      href={link.href}
+                      style={{
+                        fontSize: "0.875rem",
+                        color: "var(--muted)",
+                      }}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Legal */}
-          <div>
-            <h4
-              style={{
-                fontSize: "0.875rem",
-                fontWeight: 600,
-                marginBottom: "1rem",
-                color: "var(--foreground)",
-              }}
-            >
-              법적 고지
-            </h4>
-            <ul style={{ listStyle: "none" }}>
-              {footerLinks.legal.map((link) => (
-                <li key={link.name} style={{ marginBottom: "0.5rem" }}>
-                  <Link
-                    href={link.href}
-                    style={{
-                      fontSize: "0.875rem",
-                      color: "var(--muted)",
-                    }}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Legal */}
+            <div style={{ textAlign: "right" }}>
+              <h4
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  marginBottom: "1rem",
+                  color: "var(--foreground)",
+                }}
+              >
+                법적 고지
+              </h4>
+              <ul style={{ listStyle: "none" }}>
+                {footerLinks.legal.map((link) => (
+                  <li key={link.name} style={{ marginBottom: "0.5rem" }}>
+                    <Link
+                      href={link.href}
+                      style={{
+                        fontSize: "0.875rem",
+                        color: "var(--muted)",
+                      }}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 

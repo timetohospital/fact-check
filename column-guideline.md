@@ -240,16 +240,44 @@ category: "wellness"
 
 ---
 
-## 7. 예시 Frontmatter
+## 7. 카테고리 및 검수팀
+
+### 7.1 카테고리 분류
+
+| 카테고리 | 영문 slug | 설명 |
+|---------|----------|------|
+| 식단 | diet | 영양, 음식, 다이어트 관련 |
+| 질병 | disease | 질환, 치료, 의학 정보 |
+| 정신건강 | mental-health | 심리, 정신과, 수면 관련 |
+| 암 | cancer | 암 환자 관리, 종양학 |
+
+### 7.2 검수팀 명명 규칙
+
+**중요: 개인 실명이나 병원명을 사용하지 않습니다.**
+
+| 분야 | 검수팀명 |
+|------|---------|
+| 영양/식이 | 36.5 영양 전문팀 |
+| 내분비(당뇨 등) | 36.5 내분비 전문팀 |
+| 소화기 | 36.5 소화기 전문팀 |
+| 정신건강 | 36.5 정신건강 전문팀 |
+| 심리상담 | 36.5 심리상담 전문팀 |
+| 종양/암 | 36.5 종양 전문팀 |
+| 스포츠의학 | 36.5 스포츠의학 전문팀 |
+| 약품 관련 | 36.5 의약품 검수팀 |
+
+---
+
+## 8. 예시 Frontmatter
 
 ```yaml
 ---
 title: "공복에 커피 마시면 위에 안 좋을까? 의사가 알려주는 진실 [팩트체크]"
 description: "공복 커피가 위장에 미치는 영향을 최신 연구 결과로 팩트체크합니다. 위염, 역류성 식도염 환자의 커피 섭취 가이드까지."
-author: "이수진, 의학전문기자"
+author: "365 Health 편집팀"
 publishedAt: "2025-01-20"
 updatedAt: "2025-01-20"
-category: "nutrition"
+category: "diet"
 tags:
   - "커피"
   - "공복"
@@ -259,14 +287,19 @@ tags:
 image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2070"
 imageAlt: "아침 공복에 마시는 커피 한 잔"
 metaTitle: "공복 커피, 위에 정말 안 좋을까? 2025 최신 연구 팩트체크"
-metaDescription: "공복에 커피 마시면 위장이 상한다? 최신 의학 연구로 검증한 진실과 위염 환자 커피 가이드. 전문의 자문."
-medicalReviewer: "박정훈, 소화기내과 전문의"
+metaDescription: "공복에 커피 마시면 위장이 상한다? 최신 의학 연구로 검증한 진실과 위염 환자 커피 가이드."
+medicalReviewer: "36.5 소화기 전문팀"
 reviewedAt: "2025-01-19"
 sources:
   - "Boekema PJ, et al. (1999). Coffee and gastrointestinal function. Scand J Gastroenterol. https://pubmed.ncbi.nlm.nih.gov/10499460/"
   - "Nehlig A. (2022). Effects of Coffee on the Gastro-Intestinal Tract. Nutrients. https://doi.org/10.3390/nu14020399"
 ---
 ```
+
+**주의사항:**
+- `author`: 개인 실명 대신 "365 Health 편집팀" 사용 (사이트에 표시되지 않음)
+- `medicalReviewer`: 개인 실명/병원명 대신 "36.5 [분야] 전문팀" 형식 사용
+- `category`: 4가지 중 하나 선택 (diet, disease, mental-health, cancer)
 
 ---
 

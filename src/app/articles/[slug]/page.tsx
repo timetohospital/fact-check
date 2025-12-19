@@ -141,8 +141,6 @@ export default async function ArticlePage({
                 color: "var(--muted)",
               }}
             >
-              <span>By {frontmatter.author}</span>
-              <span>·</span>
               <span>{frontmatter.publishedAt}</span>
               <span>·</span>
               <span>{readingTime} min read</span>
@@ -168,7 +166,7 @@ export default async function ArticlePage({
                       <path d="M9 12l2 2 4-4" />
                       <circle cx="12" cy="12" r="10" />
                     </svg>
-                    Reviewed by {frontmatter.medicalReviewer}
+                    {frontmatter.medicalReviewer}
                   </span>
                 </>
               )}

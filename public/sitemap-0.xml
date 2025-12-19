@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://health-factcheck.com/articles/benefits-of-meditation/</loc><lastmod>2025-12-19T03:41:36.314Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/articles/cancer-survivor-alcohol-fact-check/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/articles/causes-of-panic-disorder/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/articles/cold-shower-after-exercise-fact-check/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/articles/diabetes-fruit-consumption-guide/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/articles/empty-stomach-coffee-fact-check/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/articles/sample-article/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/articles/sleeping-pills-long-term-risks/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/articles/vitamin-d-overdose-risks/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/category/건강/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/category/정신건강/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/category/fitness/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/category/mental-health/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/category/nutrition/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/category/wellness/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://health-factcheck.com/</loc><lastmod>2025-12-19T03:41:36.316Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/benefits-of-meditation/</loc><lastmod>2025-12-19T04:09:17.730Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/cancer-survivor-alcohol-fact-check/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/causes-of-panic-disorder/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/cold-shower-after-exercise-fact-check/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/diabetes-fruit-consumption-guide/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/empty-stomach-coffee-fact-check/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/sample-article/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/sleeping-pills-long-term-risks/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/articles/vitamin-d-overdose-risks/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/category/cancer/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/category/diet/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/category/disease/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/category/mental-health/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://health-factcheck.com/</loc><lastmod>2025-12-19T04:09:17.733Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
