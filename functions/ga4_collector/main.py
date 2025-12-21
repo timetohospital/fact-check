@@ -450,10 +450,17 @@ def update_ab_test_result(conn, test_id: str, result: Dict):
     conn.commit()
 
 
-def evaluate_all_ab_tests(conn):
-    """모든 진행 중인 A/B 테스트 평가"""
+def evaluate_all_ab_tests(conn) -> int:
+    """
+    모든 진행 중인 A/B 테스트 평가
+
+    Returns:
+        int: 완료된 테스트 수 (content_analyzer 호출 필요 여부 판단용)
+    """
     tests = get_running_ab_tests(conn)
     print(f"[GA4 Collector] {len(tests)}개 A/B 테스트 평가 중...")
+
+    completed_count = 0
 
     for test in tests:
         a_metrics = get_version_metrics(conn, test["article_slug"], test["control_version"])
@@ -466,7 +473,35 @@ def evaluate_all_ab_tests(conn):
         result = evaluate_ab_test(a_metrics, b_metrics)
         update_ab_test_result(conn, test["id"], result)
 
+        if result["conclusion"] == "significant":
+            completed_count += 1
+
         print(f"  - {test['name']}: {result['conclusion']} (p={result['p_value']}, winner={result['winner']})")
+
+    return completed_count
+
+
+def trigger_content_analyzer():
+    """
+    SPEC-003: content_analyzer Cloud Function 호출
+
+    완료된 A/B 테스트가 있으면 분석 트리거
+    """
+    import requests
+
+    url = os.environ.get(
+        "CONTENT_ANALYZER_URL",
+        "https://asia-northeast3-galddae-health.cloudfunctions.net/content-analyzer"
+    )
+
+    try:
+        print(f"[GA4 Collector] Content Analyzer 호출: {url}")
+        response = requests.post(url, timeout=60)
+        print(f"[GA4 Collector] Content Analyzer 응답: {response.status_code}")
+        return response.status_code == 200
+    except Exception as e:
+        print(f"[GA4 Collector] Content Analyzer 호출 실패: {e}")
+        return False
 
 
 # ============================================
@@ -501,15 +536,23 @@ def collect_ga4_metrics(request):
         save_metrics(conn, metrics, scroll_data, today)
 
         # 4. A/B 테스트 평가
-        evaluate_all_ab_tests(conn)
+        completed_tests = evaluate_all_ab_tests(conn)
 
         conn.close()
+
+        # 5. 완료된 테스트가 있으면 Content Analyzer 호출 (SPEC-003)
+        analyzer_triggered = False
+        if completed_tests > 0:
+            print(f"[GA4 Collector] {completed_tests}개 테스트 완료, Content Analyzer 호출")
+            analyzer_triggered = trigger_content_analyzer()
 
         result = {
             "status": "success",
             "metrics_collected": len(metrics),
             "scroll_data_collected": len(scroll_data),
             "date": today,
+            "completed_tests": completed_tests,
+            "analyzer_triggered": analyzer_triggered,
         }
         print(f"[GA4 Collector] 완료: {json.dumps(result)}")
         return json.dumps(result), 200
