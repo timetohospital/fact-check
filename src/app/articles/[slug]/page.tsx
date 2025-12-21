@@ -2,15 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import { getArticleBySlug, getAllArticles } from "@/lib/content";
+import {
+  getArticleWithFallback,
+  getAllSlugsWithFallback,
+} from "@/lib/content-db";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { generateArticleMetadata } from "@/lib/seo";
+import ScrollDepthTracker from "@/components/analytics/ScrollDepthTracker";
 
 export async function generateStaticParams() {
-  const articles = getAllArticles();
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
+  const slugs = await getAllSlugsWithFallback();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -19,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleWithFallback(slug);
   if (!article) return {};
   return generateArticleMetadata(article.frontmatter, slug);
 }
@@ -30,7 +32,7 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleWithFallback(slug);
 
   if (!article) {
     notFound();
@@ -40,6 +42,7 @@ export default async function ArticlePage({
 
   return (
     <>
+      <ScrollDepthTracker articleSlug={slug} expectedReadingTime={readingTime} />
       <ArticleJsonLd frontmatter={frontmatter} slug={slug} />
       <BreadcrumbJsonLd
         items={[
@@ -86,7 +89,7 @@ export default async function ArticlePage({
           </span>
         </nav>
 
-        <article style={{ maxWidth: "800px" }}>
+        <article style={{ maxWidth: "720px", margin: "0 auto" }}>
           {/* Header */}
           <header style={{ marginBottom: "2rem" }}>
             {/* Category */}
@@ -110,6 +113,8 @@ export default async function ArticlePage({
                 lineHeight: 1.2,
                 marginTop: "0.5rem",
                 color: "var(--foreground)",
+                wordBreak: "keep-all",
+                overflowWrap: "break-word",
               }}
             >
               {frontmatter.title}
@@ -122,6 +127,8 @@ export default async function ArticlePage({
                 color: "var(--muted)",
                 marginTop: "1rem",
                 lineHeight: 1.6,
+                wordBreak: "keep-all",
+                overflowWrap: "break-word",
               }}
             >
               {frontmatter.description}
@@ -203,6 +210,7 @@ export default async function ArticlePage({
               fontSize: "1.125rem",
               lineHeight: 1.8,
               color: "var(--foreground)",
+              wordBreak: "keep-all",
             }}
           >
             <MDXRemote
@@ -264,33 +272,60 @@ export default async function ArticlePage({
           {frontmatter.sources && frontmatter.sources.length > 0 && (
             <div
               style={{
-                marginTop: "2rem",
+                marginTop: "3rem",
                 padding: "1.5rem",
                 backgroundColor: "var(--secondary)",
-                borderRadius: "8px",
+                borderRadius: "12px",
+                border: "1px solid var(--border)",
               }}
             >
               <h3
                 style={{
-                  fontSize: "0.875rem",
+                  fontSize: "0.8125rem",
                   fontWeight: 600,
-                  color: "var(--foreground)",
-                  marginBottom: "0.75rem",
+                  color: "var(--muted)",
+                  marginBottom: "1rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
                 }}
               >
-                Sources
+                참고 문헌
               </h3>
               <ol
                 style={{
-                  listStylePosition: "inside",
-                  fontSize: "0.875rem",
+                  paddingLeft: "1.25rem",
+                  fontSize: "0.8125rem",
                   color: "var(--muted)",
-                  lineHeight: 1.8,
+                  lineHeight: 1.7,
+                  margin: 0,
                 }}
               >
-                {frontmatter.sources.map((source, index) => (
-                  <li key={index}>{source}</li>
-                ))}
+                {frontmatter.sources.map((source, index) => {
+                  const urlMatch = source.match(/(https?:\/\/[^\s]+)/);
+                  const url = urlMatch ? urlMatch[1] : null;
+                  const text = url ? source.replace(url, "").trim() : source;
+
+                  return (
+                    <li key={index} style={{ marginBottom: "0.625rem" }}>
+                      {text}
+                      {url && (
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            color: "var(--primary)",
+                            textDecoration: "none",
+                            marginLeft: "0.375rem",
+                            fontWeight: 500,
+                          }}
+                        >
+                          ↗
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
               </ol>
             </div>
           )}
@@ -298,40 +333,66 @@ export default async function ArticlePage({
           {/* Medical Disclaimer */}
           <div
             style={{
-              marginTop: "2rem",
-              padding: "1rem",
-              backgroundColor: "#fef3c7",
-              border: "1px solid #fbbf24",
-              borderRadius: "8px",
-              fontSize: "0.875rem",
-              color: "#92400e",
+              marginTop: "1rem",
+              padding: "1.5rem",
+              backgroundColor: "var(--secondary)",
+              borderRadius: "12px",
+              border: "1px solid var(--border)",
             }}
           >
-            <strong>Medical Disclaimer:</strong> This content is for
-            informational purposes only and should not be considered medical
-            advice. Always consult with a qualified healthcare professional.
+            <h3
+              style={{
+                fontSize: "0.8125rem",
+                fontWeight: 600,
+                color: "var(--muted)",
+                marginBottom: "0.75rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+              }}
+            >
+              의료 면책 조항
+            </h3>
+            <p
+              style={{
+                fontSize: "0.8125rem",
+                color: "var(--muted)",
+                lineHeight: 1.7,
+                margin: 0,
+              }}
+            >
+              이 콘텐츠는 정보 제공 목적으로만 작성되었으며, 의료적 조언으로 간주되어서는 안 됩니다. 건강 관련 결정은 반드시 전문 의료인과 상담 후 내리시기 바랍니다.
+            </p>
           </div>
         </article>
       </div>
 
       {/* Article Content Styles */}
       <style>{`
+        .article-content {
+          word-break: keep-all;
+          overflow-wrap: break-word;
+        }
         .article-content h2 {
           font-size: 1.5rem;
           font-weight: 700;
-          margin-top: 2.5rem;
+          margin-top: 3.5rem;
           margin-bottom: 1rem;
-          color: var(--foreground);
+          color: var(--primary);
+          padding-left: 1rem;
+          border-left: 4px solid var(--primary);
+          word-break: keep-all;
         }
         .article-content h3 {
           font-size: 1.25rem;
           font-weight: 600;
-          margin-top: 2rem;
+          margin-top: 2.5rem;
           margin-bottom: 0.75rem;
           color: var(--foreground);
+          word-break: keep-all;
         }
         .article-content p {
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.75rem;
+          word-break: keep-all;
         }
         .article-content ul,
         .article-content ol {
@@ -347,10 +408,11 @@ export default async function ArticlePage({
         }
         .article-content blockquote {
           border-left: 4px solid var(--primary);
-          padding-left: 1rem;
-          margin: 1.5rem 0;
-          font-style: italic;
-          color: var(--muted);
+          padding: 1rem 1.5rem;
+          margin: 1.75rem 0;
+          background: var(--secondary);
+          border-radius: 0 8px 8px 0;
+          color: var(--foreground);
         }
         .article-content code {
           background: var(--secondary);
