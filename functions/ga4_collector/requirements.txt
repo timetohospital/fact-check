@@ -1,0 +1,15 @@
+# GA4 Data API
+google-analytics-data>=0.18.0
+
+# PostgreSQL
+pg8000>=1.30.0
+
+# 통계 분석
+scipy>=1.11.0
+numpy>=1.24.0
+
+# Cloud Functions
+functions-framework>=3.0.0
+
+# 환경 변수
+python-dotenv>=1.0.0
