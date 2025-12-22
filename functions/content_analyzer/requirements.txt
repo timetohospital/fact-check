@@ -1,14 +1,16 @@
-# Claude API
-anthropic>=0.39.0
+# Flask (Cloud Run 웹 서버)
+flask>=3.0.0
+gunicorn>=21.0.0
 
 # PostgreSQL
 pg8000>=1.30.0
-
-# Cloud Functions
-functions-framework>=3.0.0
 
 # HTTP 요청
 requests>=2.31.0
 
 # 환경 변수
 python-dotenv>=1.0.0
+
+# Note: anthropic 패키지 제거됨
+# Claude Code CLI (구독 기반)를 사용하므로 API 패키지 불필요
+# Claude CLI는 Docker 이미지에 포함됨 (ghcr.io/cabinlab/claude-code-sdk:python)

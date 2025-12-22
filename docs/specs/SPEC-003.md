@@ -1,16 +1,42 @@
-# SPEC-003: Claude 4.5 Opus 분석 시스템
+# SPEC-003: Claude Code CLI 기반 분석 시스템
 
-> **상태**: Draft
+> **상태**: In Progress
 > **우선순위**: P0
 > **예상 기간**: 1일
 > **작성일**: 2024-12-21
+> **수정일**: 2024-12-22
 > **선행조건**: SPEC-001 완료, SPEC-002 완료
+
+---
+
+## ⚠️ 아키텍처 변경 (2024-12-22)
+
+**기존**: Cloud Function + Anthropic API (월 ~$425)
+**변경**: Cloud Run + Claude Code CLI (구독 기반, 월 ~$5)
+
+### 변경 이유
+- Claude Code 구독으로 API 비용 절감 (88%)
+- `claude setup-token`으로 Long-lived OAuth Token 사용
+- Docker 컨테이너에서 CLI 실행
+
+### 새 아키텍처
+```
+Cloud Scheduler (3일마다)
+         ↓
+Cloud Run (Docker)
+  - Image: ghcr.io/cabinlab/claude-code-sdk:python
+  - ENV: CLAUDE_CODE_OAUTH_TOKEN
+         ↓
+Claude Code CLI (구독 인증)
+         ↓
+Cloud SQL (factcheck_db)
+```
 
 ---
 
 ## 1. 목표
 
-A/B 테스트 완료 후 Claude 4.5 Opus를 사용하여 승패 원인을 분석하고, 패턴을 추출하여 향후 콘텐츠 생성에 반영할 수 있는 자동화된 분석 시스템을 구축한다.
+A/B 테스트 완료 후 Claude Code CLI를 사용하여 승패 원인을 분석하고, 패턴을 추출하여 향후 콘텐츠 생성에 반영할 수 있는 자동화된 분석 시스템을 구축한다.
 
 ### 1.1 현재 상태
 
@@ -412,16 +438,19 @@ def save_analysis_result(
 
 ---
 
-## 7. Cloud Function 구현
+## 7. Cloud Run 구현 (변경됨)
 
 ### 7.1 디렉토리 구조
 
 ```
 functions/content_analyzer/
-├── main.py           # Cloud Function 메인
-├── requirements.txt  # 의존성
-├── prompts.py        # 분석 프롬프트
-└── deploy.sh         # 배포 스크립트
+├── main.py               # Flask 앱 (Cloud Run용)
+├── requirements.txt      # 의존성 (anthropic 제거됨)
+├── prompts.py            # 분석 프롬프트
+├── prompt_updater.py     # SPEC-004 프롬프트 업데이트
+├── Dockerfile            # claude-code-sdk 기반
+├── deploy-cloud-run.sh   # Cloud Run 배포 스크립트
+└── SETUP.md              # 설정 가이드
 ```
 
 ### 7.2 메인 함수
@@ -507,18 +536,24 @@ def trigger_content_analyzer():
 
 ---
 
-## 9. 비용 추정
+## 9. 비용 추정 (변경됨)
 
-### 9.1 Claude API 비용
+### 9.1 새 비용 구조
 
-| 항목 | 값 | 비용 |
-|------|-----|------|
-| 분석당 입력 토큰 | ~3,000 | - |
-| 분석당 출력 토큰 | ~500 | - |
-| 분석당 비용 (Opus) | - | ~$0.10 |
-| 월간 분석 횟수 | ~50회 | ~$5 |
+| 항목 | 기존 (API) | 변경 (CLI) |
+|------|-----------|-----------|
+| Claude API | ~$425/월 | **$0** (구독) |
+| Cloud Run | - | ~$5/월 |
+| Cloud SQL | $50/월 | $50/월 |
+| **총합** | **~$476/월** | **~$55/월** |
 
-> Sonnet 사용 시 비용 1/3로 감소
+> **88% 비용 절감!**
+
+### 9.2 구독 사용 방법
+
+1. `claude setup-token` 명령어로 OAuth Token 생성
+2. GCP Secret Manager에 토큰 저장
+3. Cloud Run 환경변수로 주입
 
 ---
 

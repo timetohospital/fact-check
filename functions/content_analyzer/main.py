@@ -1,18 +1,26 @@
 """
-SPEC-003: Content Analyzer Cloud Function
+SPEC-003: Content Analyzer Cloud Run Service
 
-A/B 테스트 완료 후 Claude를 사용하여 분석하고 패턴을 추출합니다.
+A/B 테스트 완료 후 Claude Code CLI를 사용하여 분석하고 패턴을 추출합니다.
+
+인증 방식:
+- Claude Code OAuth Token (구독 기반)
+- 환경변수: CLAUDE_CODE_OAUTH_TOKEN
+
+참고:
+- Cloud Function에서 Cloud Run으로 변경 (Docker 지원 필요)
+- ghcr.io/cabinlab/claude-code-sdk:python 이미지 사용
 """
 
 import os
 import json
 import re
+import subprocess
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 
-import functions_framework
-import anthropic
 import pg8000
+from flask import Flask, request, jsonify
 
 from prompts import ANALYSIS_SYSTEM_PROMPT, format_analysis_prompt
 
@@ -21,9 +29,9 @@ from prompts import ANALYSIS_SYSTEM_PROMPT, format_analysis_prompt
 # 설정
 # ============================================
 
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
-# 모델 선택: claude-sonnet-4-20250514 (비용 효율) 또는 claude-opus-4-5-20251101 (최고 품질)
-CLAUDE_MODEL = os.environ.get("CLAUDE_MODEL", "claude-sonnet-4-20250514")
+# Claude Code OAuth Token (구독 기반 인증)
+# 로컬에서 `claude setup-token` 명령어로 생성
+CLAUDE_OAUTH_TOKEN = os.environ.get("CLAUDE_CODE_OAUTH_TOKEN")
 
 DB_CONFIG = {
     "host": os.environ.get("DB_HOST", "34.64.111.186"),
@@ -165,7 +173,7 @@ def get_version_metrics(conn, slug: str, version: str) -> Dict:
 
 
 # ============================================
-# Claude 분석
+# Claude Code CLI 분석
 # ============================================
 
 def analyze_with_claude(
@@ -176,15 +184,17 @@ def analyze_with_claude(
     metrics_b: Dict
 ) -> Dict:
     """
-    Claude를 사용하여 A/B 테스트 분석
+    Claude Code CLI를 사용하여 A/B 테스트 분석
+
+    인증: CLAUDE_CODE_OAUTH_TOKEN 환경변수 (구독 기반)
+    비용: $0 (Claude Max/Pro 구독으로 사용)
 
     Returns:
         Dict: 분석 결과 (patterns, recommendations 포함)
     """
-    if not ANTHROPIC_API_KEY:
-        raise ValueError("ANTHROPIC_API_KEY 환경 변수가 설정되지 않았습니다")
-
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    if not CLAUDE_OAUTH_TOKEN:
+        raise ValueError("CLAUDE_CODE_OAUTH_TOKEN 환경 변수가 설정되지 않았습니다. "
+                        "로컬에서 'claude setup-token' 명령어로 토큰을 생성하세요.")
 
     # 프롬프트 구성
     user_prompt = format_analysis_prompt(
@@ -200,22 +210,47 @@ def analyze_with_claude(
         lift=test["actual_lift"],
     )
 
-    print(f"[Analyzer] Claude 분석 요청: {test['name']}")
+    # 전체 프롬프트 (시스템 + 사용자)
+    full_prompt = f"""{ANALYSIS_SYSTEM_PROMPT}
 
-    # Claude API 호출
-    response = client.messages.create(
-        model=CLAUDE_MODEL,
-        max_tokens=2000,
-        system=ANALYSIS_SYSTEM_PROMPT,
-        messages=[
-            {"role": "user", "content": user_prompt}
-        ]
-    )
+---
 
-    response_text = response.content[0].text
-    print(f"[Analyzer] Claude 응답 길이: {len(response_text)}")
+{user_prompt}"""
 
-    # JSON 파싱
+    print(f"[Analyzer] Claude Code CLI 분석 요청: {test['name']}")
+
+    # Claude Code CLI 호출 (headless mode)
+    try:
+        result = subprocess.run(
+            [
+                "claude",
+                "-p", full_prompt,
+                "--output-format", "json"
+            ],
+            capture_output=True,
+            text=True,
+            timeout=120,  # 2분 타임아웃
+            env={**os.environ, "CLAUDE_CODE_OAUTH_TOKEN": CLAUDE_OAUTH_TOKEN}
+        )
+
+        if result.returncode != 0:
+            error_msg = result.stderr or result.stdout
+            raise RuntimeError(f"Claude CLI 실행 실패: {error_msg}")
+
+        # Claude CLI JSON 응답 파싱
+        cli_response = json.loads(result.stdout)
+        response_text = cli_response.get("result", "")
+
+        print(f"[Analyzer] Claude 응답 길이: {len(response_text)}")
+
+    except subprocess.TimeoutExpired:
+        raise RuntimeError("Claude CLI 타임아웃 (120초 초과)")
+    except json.JSONDecodeError as e:
+        print(f"[Analyzer] CLI 응답 파싱 오류: {e}")
+        print(f"[Analyzer] stdout: {result.stdout[:500]}")
+        raise RuntimeError(f"Claude CLI 응답 파싱 실패: {e}")
+
+    # 분석 결과 JSON 파싱
     try:
         # JSON 블록 추출
         json_match = re.search(r'```json\s*([\s\S]*?)\s*```', response_text)
@@ -383,15 +418,19 @@ def save_analysis_result(
 
 
 # ============================================
-# Cloud Function 엔트리포인트
+# Flask 앱 (Cloud Run용)
 # ============================================
 
-@functions_framework.http
-def analyze_completed_tests(request):
-    """
-    완료된 A/B 테스트를 분석하는 Cloud Function
+app = Flask(__name__)
 
-    SPEC-002 완료 후 호출되거나, 수동으로 호출 가능
+
+@app.route("/", methods=["GET", "POST"])
+@app.route("/analyze", methods=["GET", "POST"])
+def analyze_completed_tests():
+    """
+    완료된 A/B 테스트를 분석하는 Cloud Run 엔드포인트
+
+    SPEC-002 완료 후 호출되거나, Cloud Scheduler로 호출
     """
     try:
         print("[Analyzer] 시작...")
@@ -472,17 +511,24 @@ def analyze_completed_tests(request):
 
 
 # ============================================
-# 로컬 테스트
+# 헬스체크 엔드포인트
+# ============================================
+
+@app.route("/health", methods=["GET"])
+def health_check():
+    """Cloud Run 헬스체크"""
+    return jsonify({"status": "healthy", "service": "content-analyzer"}), 200
+
+
+# ============================================
+# 메인 (Cloud Run / 로컬 실행)
 # ============================================
 
 if __name__ == "__main__":
-    from flask import Flask, request as flask_request
+    port = int(os.environ.get("PORT", 8081))
+    debug = os.environ.get("DEBUG", "false").lower() == "true"
 
-    app = Flask(__name__)
+    print(f"Content Analyzer 서버 시작: http://localhost:{port}")
+    print(f"  - OAuth Token 설정: {'✅' if CLAUDE_OAUTH_TOKEN else '❌ (CLAUDE_CODE_OAUTH_TOKEN 필요)'}")
 
-    @app.route("/", methods=["GET", "POST"])
-    def index():
-        return analyze_completed_tests(flask_request)
-
-    print("로컬 서버 시작: http://localhost:8081")
-    app.run(port=8081, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=debug)
