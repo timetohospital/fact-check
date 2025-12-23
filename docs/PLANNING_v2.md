@@ -60,8 +60,8 @@
 | Next.js DB 연동 | ✅ 완료 | SPEC-001 |
 | GA4 자동 수집 | ✅ 완료 | SPEC-002 |
 | Claude 분석 시스템 | ✅ 코드 완료 | SPEC-003 (배포 대기) |
-| patterns 테이블 | ⏳ 대기 | 마이그레이션 필요 |
-| prompt_versions 테이블 | ⏳ 대기 | 마이그레이션 필요 |
+| patterns 테이블 | ✅ 완료 | 2024-12-23 마이그레이션 |
+| prompt_versions 테이블 | ✅ 완료 | 2024-12-23 마이그레이션, v1.0 활성 |
 | OAuth Token 생성 | ✅ 완료 | 로컬 테스트 성공 |
 | Cloud Run 배포 | ⏳ 대기 | Dockerfile 준비 완료 |
 | Notion 연동 | ⏳ 대기 | SPEC-005 |
@@ -215,8 +215,8 @@ echo -n "token" | gcloud secrets create claude-oauth-token --data-file=-
 ## 10. 다음 단계
 
 ### 즉시 필요
-1. [ ] DB 마이그레이션 실행 (patterns, prompt_versions 테이블)
-2. [ ] GCP Secret Manager에 OAuth Token 저장
+1. [x] DB 마이그레이션 실행 ✅ (2024-12-23 완료)
+2. [ ] GCP Secret Manager에 OAuth Token 저장 (또는 Cloud Run 환경변수)
 3. [ ] Cloud Run 배포 (content-analyzer)
 4. [ ] Cloud Scheduler 설정 (3일마다)
 
@@ -238,6 +238,6 @@ echo -n "token" | gcloud secrets create claude-oauth-token --data-file=-
 
 ---
 
-문서 버전: v2.1
-최종 수정: 2024-12-22
+문서 버전: v2.2
+최종 수정: 2024-12-23
 상태: 구현 진행 중

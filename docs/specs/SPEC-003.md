@@ -174,8 +174,8 @@ gcloud run deploy content-analyzer \
 
 ### Phase 1: DB 스키마
 - [x] `002_add_patterns_table.sql` 작성
-- [ ] `patterns` 테이블 생성 (DB 마이그레이션 필요)
-- [ ] `prompt_versions` 테이블 생성 (DB 마이그레이션 필요)
+- [x] `patterns` 테이블 생성 ✅ (2024-12-23 완료)
+- [x] `prompt_versions` 테이블 생성 ✅ (2024-12-23 완료, v1.0 활성화)
 
 ### Phase 2: Cloud Run 서비스
 - [x] `main.py` - Flask 앱 + Claude CLI 호출
@@ -193,7 +193,7 @@ gcloud run deploy content-analyzer \
 - [ ] Cloud Run 배포
 
 ### Phase 4: 테스트
-- [ ] DB 마이그레이션 실행
+- [x] DB 마이그레이션 실행 ✅ (2024-12-23 완료)
 - [ ] Cloud Run 배포
 - [ ] 엔드투엔드 테스트
 
@@ -205,7 +205,7 @@ gcloud run deploy content-analyzer \
 - [x] Claude Code CLI 호출 코드 구현
 - [x] OAuth Token 생성 및 테스트
 - [x] Dockerfile 및 배포 스크립트 작성
-- [ ] DB 마이그레이션 실행
+- [x] DB 마이그레이션 실행 ✅ (2024-12-23 완료)
 - [ ] Cloud Run 배포
 - [ ] Cloud Scheduler 설정
 
@@ -228,6 +228,6 @@ SPEC-003 배포 완료 후:
 
 ---
 
-**문서 버전**: 2.0
-**최종 수정**: 2024-12-22
+**문서 버전**: 2.1
+**최종 수정**: 2024-12-23
 **작성자**: R2-D2
