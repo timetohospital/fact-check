@@ -1,6 +1,6 @@
 # SPEC-003: Claude Code CLI 기반 분석 시스템
 
-> **상태**: ✅ 구현 완료
+> **상태**: ✅ 배포 완료
 > **우선순위**: P0
 > **예상 기간**: 1일
 > **작성일**: 2024-12-21
@@ -189,13 +189,13 @@ gcloud run deploy content-analyzer \
 ### Phase 3: 인증
 - [x] `claude setup-token`으로 OAuth Token 생성
 - [x] 로컬 테스트 완료 (2+2=4 응답 확인)
-- [ ] GCP Secret Manager에 토큰 저장
-- [ ] Cloud Run 배포
+- [x] Cloud Run 환경변수로 토큰 주입 ✅ (2024-12-24 완료)
+- [x] Cloud Run 배포 ✅ (2024-12-24 완료)
 
 ### Phase 4: 테스트
 - [x] DB 마이그레이션 실행 ✅ (2024-12-23 완료)
-- [ ] Cloud Run 배포
-- [ ] 엔드투엔드 테스트
+- [x] Cloud Run 배포 ✅ (2024-12-24 완료)
+- [x] Cloud Scheduler 설정 ✅ (2024-12-24 완료, 3일마다 오전 9시)
 
 ---
 
@@ -206,8 +206,8 @@ gcloud run deploy content-analyzer \
 - [x] OAuth Token 생성 및 테스트
 - [x] Dockerfile 및 배포 스크립트 작성
 - [x] DB 마이그레이션 실행 ✅ (2024-12-23 완료)
-- [ ] Cloud Run 배포
-- [ ] Cloud Scheduler 설정
+- [x] Cloud Run 배포 ✅ (2024-12-24 완료)
+- [x] Cloud Scheduler 설정 ✅ (2024-12-24 완료)
 
 ---
 
@@ -228,6 +228,6 @@ SPEC-003 배포 완료 후:
 
 ---
 
-**문서 버전**: 2.1
-**최종 수정**: 2024-12-23
+**문서 버전**: 2.2
+**최종 수정**: 2024-12-24
 **작성자**: R2-D2

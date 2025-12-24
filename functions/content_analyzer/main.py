@@ -23,6 +23,7 @@ import pg8000
 from flask import Flask, request, jsonify
 
 from prompts import ANALYSIS_SYSTEM_PROMPT, format_analysis_prompt
+from prompt_updater import update_prompt_if_needed
 
 
 # ============================================
@@ -32,6 +33,9 @@ from prompts import ANALYSIS_SYSTEM_PROMPT, format_analysis_prompt
 # Claude Code OAuth Token (구독 기반 인증)
 # 로컬에서 `claude setup-token` 명령어로 생성
 CLAUDE_OAUTH_TOKEN = os.environ.get("CLAUDE_CODE_OAUTH_TOKEN")
+
+# Claude 모델 정보 (로깅용)
+CLAUDE_MODEL = "claude-code-cli"
 
 DB_CONFIG = {
     "host": os.environ.get("DB_HOST", "34.64.111.186"),
@@ -442,6 +446,12 @@ def analyze_completed_tests():
         print(f"[Analyzer] {len(completed_tests)}개 테스트 분석 대기")
 
         if len(completed_tests) == 0:
+            # 테스트가 없어도 프롬프트 업데이트 체크
+            try:
+                prompt_result = update_prompt_if_needed(conn)
+                print(f"[Analyzer] 프롬프트 업데이트: {prompt_result}")
+            except Exception as e:
+                print(f"[Analyzer] 프롬프트 업데이트 실패: {e}")
             conn.close()
             return json.dumps({
                 "status": "success",
@@ -492,6 +502,13 @@ def analyze_completed_tests():
                     "test_name": test["name"],
                     "error": str(e),
                 })
+
+        # 7. SPEC-004: 프롬프트 자동 업데이트
+        try:
+            prompt_result = update_prompt_if_needed(conn)
+            print(f"[Analyzer] 프롬프트 업데이트: {prompt_result}")
+        except Exception as e:
+            print(f"[Analyzer] 프롬프트 업데이트 실패: {e}")
 
         conn.close()
 
