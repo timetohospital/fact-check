@@ -1,0 +1,223 @@
+{
+  "title": "대장 용종 종류별 대장암으로의 발전 가능성",
+  "subtitle": "모든 용종이 암이 되는 건 아닙니다. 하지만 어떤 용종은 주의가 필요합니다.",
+  "slug": "colon-polyp-cancer-risk",
+  "style": "hybrid",
+  "depth": "standard",
+  "acts": {
+    "act1_introduction": {
+      "title": "용종, 암의 씨앗인가?",
+      "description": "대장내시경에서 용종이 발견되면 누구나 불안해집니다. 하지만 모든 용종이 암이 되는 것은 아닙니다.",
+      "keyMessage": "선종의 5-10%만 암으로 진행",
+      "emotionalTone": "reassuring"
+    },
+    "act2_development": {
+      "title": "위험도는 종류와 크기에 달렸다",
+      "description": "용종의 종류에 따라 암 발생 위험이 크게 다릅니다. 융모 선종은 관상 선종보다 3배 이상 위험합니다.",
+      "keyMessage": "융모선종 10년 암 발생률 8.6% vs 관상선종 2.7%",
+      "emotionalTone": "informative"
+    },
+    "act3_conclusion": {
+      "title": "정기 검진이 답이다",
+      "description": "정기적인 대장내시경으로 용종을 조기에 발견하고 제거하면 대장암의 90% 이상을 예방할 수 있습니다.",
+      "keyMessage": "10-15년의 예방 시간",
+      "emotionalTone": "hopeful"
+    }
+  },
+  "steps": [
+    {
+      "id": 1,
+      "act": "act1_introduction",
+      "title": "대장내시경에서 용종이 발견되었습니다",
+      "content": "50세 이상 성인의 30%에서 선종이 발견됩니다. 70세가 되면 이 비율은 50%까지 올라갑니다.",
+      "highlightNumber": "30%",
+      "highlightLabel": "50세 선종 발견율",
+      "chartType": "age-prevalence",
+      "chartState": "initial"
+    },
+    {
+      "id": 2,
+      "act": "act1_introduction",
+      "title": "하지만 모든 용종이 암이 되는 건 아닙니다",
+      "content": "발견된 선종 중 실제로 암으로 진행하는 것은 5-10%에 불과합니다. 대부분은 제거하면 문제없습니다.",
+      "highlightNumber": "5-10%",
+      "highlightLabel": "실제 암 진행률",
+      "chartType": "pie",
+      "chartState": "progression-rate"
+    },
+    {
+      "id": 3,
+      "act": "act2_development",
+      "title": "종양성 vs 비종양성",
+      "content": "용종은 크게 두 가지로 나뉩니다. 암으로 발전할 수 있는 종양성 용종과 암으로 발전하지 않는 비종양성 용종입니다.",
+      "highlightNumber": "2가지",
+      "highlightLabel": "용종 대분류",
+      "chartType": "classification-tree",
+      "chartState": "overview"
+    },
+    {
+      "id": 4,
+      "act": "act2_development",
+      "title": "가장 흔한 관상 선종",
+      "content": "전체 선종의 80%를 차지하는 관상 선종(Tubular Adenoma)은 10년 내 암 발생률이 2.7%로 상대적으로 낮습니다.",
+      "highlightNumber": "2.7%",
+      "highlightLabel": "10년 암 발생률",
+      "chartType": "polyp-comparison",
+      "chartState": "tubular-highlight"
+    },
+    {
+      "id": 5,
+      "act": "act2_development",
+      "title": "주의가 필요한 융모 선종",
+      "content": "융모 선종(Villous Adenoma)은 10년 내 암 발생률이 8.6%로, 관상 선종의 3배 이상입니다. 위험비(HR)도 3.82로 가장 높습니다.",
+      "highlightNumber": "8.6%",
+      "highlightLabel": "10년 암 발생률",
+      "chartType": "polyp-comparison",
+      "chartState": "villous-highlight"
+    },
+    {
+      "id": 6,
+      "act": "act2_development",
+      "title": "크기가 중요합니다",
+      "content": "1cm 미만 용종의 암 위험은 1% 이하지만, 2cm 이상이면 35-50%로 급증합니다. 크기가 커질수록 위험이 기하급수적으로 증가합니다.",
+      "highlightNumber": "40배",
+      "highlightLabel": "위험 증가",
+      "chartType": "size-risk",
+      "chartState": "comparison"
+    },
+    {
+      "id": 7,
+      "act": "act2_development",
+      "title": "빠르게 진행할 수 있는 톱니모양 병변",
+      "content": "톱니모양 병변(Serrated Lesion)은 작아도 빠르게 암으로 진행할 수 있습니다. 13개월 만에 암으로 전환된 사례도 보고되었습니다.",
+      "highlightNumber": "13개월",
+      "highlightLabel": "최단 암 전환 기간",
+      "chartType": "serrated-warning",
+      "chartState": "timeline"
+    },
+    {
+      "id": 8,
+      "act": "act2_development",
+      "title": "시간이 지날수록 위험은 커집니다",
+      "content": "1cm 이상 용종을 방치하면, 5년 후 4%, 10년 후 14%, 20년 후 37%의 확률로 암이 발생합니다.",
+      "highlightNumber": "37%",
+      "highlightLabel": "20년 후 암 발생률",
+      "chartType": "timeline-risk",
+      "chartState": "progression"
+    },
+    {
+      "id": 9,
+      "act": "act3_conclusion",
+      "title": "정기 검진으로 예방 가능",
+      "content": "용종이 암으로 진행하는 데는 보통 10-15년이 걸립니다. 이 시간 동안 정기 검진으로 발견하고 제거하면 대장암을 예방할 수 있습니다.",
+      "highlightNumber": "10-15년",
+      "highlightLabel": "예방 가능 시간",
+      "chartType": "prevention-timeline",
+      "chartState": "hopeful"
+    },
+    {
+      "id": 10,
+      "act": "act3_conclusion",
+      "title": "추적 검사 스케줄",
+      "content": "고위험군은 3년마다, 저위험군은 5-10년마다 대장내시경을 받으면 됩니다. 의사와 상담하여 본인에게 맞는 스케줄을 정하세요.",
+      "highlightNumber": "90%+",
+      "highlightLabel": "예방 가능률",
+      "chartType": "surveillance",
+      "chartState": "guidelines"
+    }
+  ],
+  "interactions": {
+    "nytStyle": {
+      "scrollTrigger": true,
+      "stickyChart": true,
+      "progressIndicator": true,
+      "smoothTransition": true,
+      "transitionDuration": 500
+    },
+    "puddingStyle": {
+      "filterButtons": true,
+      "compareMode": true,
+      "hoverTooltips": true,
+      "personalRiskCalculator": false
+    }
+  },
+  "chartConfig": {
+    "mainChart": {
+      "type": "bar-horizontal",
+      "dataKey": "tenYearIncidence",
+      "colorScale": ["#10B981", "#FBBF24", "#EF4444"],
+      "animateOnScroll": true
+    },
+    "sizeRiskChart": {
+      "type": "area",
+      "dataKey": "cancerRisk",
+      "gradient": true
+    },
+    "timelineChart": {
+      "type": "line-animated",
+      "dataKey": "cumulativeRisk",
+      "showPoints": true
+    },
+    "comparisonChart": {
+      "type": "lollipop",
+      "dataKey": "hazardRatio",
+      "baseline": 1.0
+    }
+  },
+  "highlights": [
+    {
+      "id": 1,
+      "number": "5-10%",
+      "label": "선종 → 암 진행률",
+      "description": "대부분의 선종은 암이 되지 않습니다",
+      "color": "green"
+    },
+    {
+      "id": 2,
+      "number": "40%",
+      "label": "2cm 이상 용종 암 위험",
+      "description": "크기가 커질수록 위험 급증",
+      "color": "red"
+    },
+    {
+      "id": 3,
+      "number": "3.82",
+      "label": "융모선종 위험비",
+      "description": "가장 위험한 용종 유형",
+      "color": "red"
+    },
+    {
+      "id": 4,
+      "number": "10-15년",
+      "label": "용종 → 암 기간",
+      "description": "정기 검진으로 예방 가능",
+      "color": "blue"
+    }
+  ],
+  "keyInsights": [
+    {
+      "id": 1,
+      "title": "모든 선종이 암이 되는 건 아닙니다",
+      "content": "선종의 약 5-10%만 실제로 대장암으로 진행합니다.",
+      "actionable": "과도한 걱정은 불필요합니다."
+    },
+    {
+      "id": 2,
+      "title": "용종 유형을 확인하세요",
+      "content": "융모 선종은 관상 선종보다 3배 이상 위험합니다.",
+      "actionable": "조직검사 결과를 의사에게 확인하세요."
+    },
+    {
+      "id": 3,
+      "title": "크기가 핵심입니다",
+      "content": "1cm 미만은 저위험, 2cm 이상은 고위험입니다.",
+      "actionable": "용종 크기에 따른 추적 검사 스케줄을 따르세요."
+    },
+    {
+      "id": 4,
+      "title": "정기 검진을 받으세요",
+      "content": "10-15년의 예방 시간이 있습니다.",
+      "actionable": "50세부터 대장내시경을 시작하세요."
+    }
+  ]
+}

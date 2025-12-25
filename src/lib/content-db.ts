@@ -402,27 +402,29 @@ export async function getAllArticlesWithFallback(): Promise<Article[]> {
 }
 
 /**
- * DB 우선, MDX 폴백으로 모든 슬러그 조회
+ * DB와 MDX 슬러그를 합쳐서 조회 (중복 제거)
  */
 export async function getAllSlugsWithFallback(): Promise<string[]> {
+  const allSlugs = new Set<string>();
+
+  // DB 슬러그 추가
   try {
-    const slugs = await getAllSlugs();
-    if (slugs.length > 0) {
-      return slugs;
-    }
+    const dbSlugs = await getAllSlugs();
+    dbSlugs.forEach(slug => allSlugs.add(slug));
   } catch (error) {
-    console.error('[content-db] DB 조회 실패, MDX로 폴백:', error);
+    console.error('[content-db] DB 조회 실패:', error);
   }
 
-  // MDX 폴백
+  // MDX 슬러그도 추가 (DB에 없는 글 포함)
   try {
     const mdxContent = await import('@/lib/content');
-    const articles = mdxContent.getAllArticles();
-    return articles.map(a => a.slug);
+    const mdxArticles = mdxContent.getAllArticles();
+    mdxArticles.forEach(a => allSlugs.add(a.slug));
   } catch (error) {
-    console.error('[content-db] MDX 폴백도 실패:', error);
-    return [];
+    console.error('[content-db] MDX 조회 실패:', error);
   }
+
+  return Array.from(allSlugs).sort();
 }
 
 /**
@@ -469,4 +471,34 @@ export async function getArticlesByTagWithFallback(tag: string): Promise<Article
     console.error('[content-db] MDX 폴백도 실패:', error);
     return [];
   }
+}
+
+/**
+ * DB와 MDX 태그를 합쳐서 조회 (중복 제거, 카운트 포함)
+ */
+export async function getAllTagsWithCountWithFallback(): Promise<Record<string, number>> {
+  const counts: Record<string, number> = {};
+
+  // DB 태그 추가
+  try {
+    const dbCounts = await getAllTagsWithCount();
+    Object.entries(dbCounts).forEach(([tag, count]) => {
+      counts[tag] = (counts[tag] || 0) + count;
+    });
+  } catch (error) {
+    console.error('[content-db] DB 태그 조회 실패:', error);
+  }
+
+  // MDX 태그도 추가 (DB에 없는 태그 포함)
+  try {
+    const mdxContent = await import('@/lib/content');
+    const mdxCounts = mdxContent.getTagCounts();
+    Object.entries(mdxCounts).forEach(([tag, count]) => {
+      counts[tag] = (counts[tag] || 0) + count;
+    });
+  } catch (error) {
+    console.error('[content-db] MDX 태그 조회 실패:', error);
+  }
+
+  return counts;
 }

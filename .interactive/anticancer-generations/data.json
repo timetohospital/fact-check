@@ -1,0 +1,218 @@
+{
+  "metadata": {
+    "title": "1,2,3세대 항암제 변천사와 폐암 치료 생존율 변화",
+    "subtitle": "화학항암제부터 면역항암제까지, 폐암 치료의 혁신",
+    "source": "국립암센터, FDA, 대한폐암학회",
+    "sourceUrl": "https://www.cancer.go.kr",
+    "lastUpdated": "2024-12-21",
+    "license": "공공누리 제1유형"
+  },
+  "timeline": {
+    "drugGenerations": [
+      {
+        "generation": 1,
+        "name": "세포독성 항암제 (화학항암제)",
+        "nameEn": "Cytotoxic Chemotherapy",
+        "period": "1940s-현재",
+        "peakYear": 1990,
+        "color": "#6B7280",
+        "mechanism": "빠르게 분열하는 모든 세포를 공격",
+        "sideEffects": "구토, 탈모, 백혈구 감소, 면역력 저하",
+        "survivalImpact": "10-15%",
+        "keyDrugs": [
+          {"name": "시스플라틴", "nameEn": "Cisplatin", "approvalYear": 1978, "type": "알킬화제"},
+          {"name": "카보플라틴", "nameEn": "Carboplatin", "approvalYear": 1989, "type": "알킬화제"},
+          {"name": "탁솔", "nameEn": "Paclitaxel", "approvalYear": 1992, "type": "식물 유도체"},
+          {"name": "젬자", "nameEn": "Gemcitabine", "approvalYear": 1996, "type": "대사길항제"},
+          {"name": "알림타", "nameEn": "Pemetrexed", "approvalYear": 2004, "type": "대사길항제"}
+        ],
+        "limitations": "정상 세포도 공격, 심각한 부작용, 낮은 선택성"
+      },
+      {
+        "generation": 2,
+        "name": "표적 항암제",
+        "nameEn": "Targeted Therapy",
+        "period": "1999-현재",
+        "peakYear": 2010,
+        "color": "#3B82F6",
+        "mechanism": "암세포의 특정 유전자/단백질만 선택적 공격",
+        "sideEffects": "피부발진, 설사 (상대적으로 경미)",
+        "survivalImpact": "25-35%",
+        "keyDrugs": [
+          {"name": "이레사", "nameEn": "Gefitinib", "approvalYear": 2003, "type": "1세대 EGFR-TKI", "milestone": "세계 최초 폐암 표적치료제"},
+          {"name": "타세바", "nameEn": "Erlotinib", "approvalYear": 2004, "type": "1세대 EGFR-TKI"},
+          {"name": "지오트립", "nameEn": "Afatinib", "approvalYear": 2013, "type": "2세대 EGFR-TKI"},
+          {"name": "타그리소", "nameEn": "Osimertinib", "approvalYear": 2015, "type": "3세대 EGFR-TKI", "milestone": "T790M 내성 돌파"},
+          {"name": "렉라자", "nameEn": "Lazertinib", "approvalYear": 2021, "type": "3세대 EGFR-TKI", "note": "한국 개발"}
+        ],
+        "limitations": "특정 유전자 변이 필수, 내성 발생"
+      },
+      {
+        "generation": 3,
+        "name": "면역 항암제",
+        "nameEn": "Immunotherapy",
+        "period": "2014-현재",
+        "peakYear": 2020,
+        "color": "#10B981",
+        "mechanism": "면역 시스템을 활성화하여 암세포 공격",
+        "sideEffects": "자가면역 반응 (상대적으로 경미)",
+        "survivalImpact": "35-40%+",
+        "keyDrugs": [
+          {"name": "키트루다", "nameEn": "Pembrolizumab", "approvalYear": 2014, "type": "PD-1 억제제", "milestone": "최초 PD-1 억제제 FDA 승인"},
+          {"name": "옵디보", "nameEn": "Nivolumab", "approvalYear": 2015, "type": "PD-1 억제제"},
+          {"name": "티센트릭", "nameEn": "Atezolizumab", "approvalYear": 2016, "type": "PD-L1 억제제"},
+          {"name": "임핀지", "nameEn": "Durvalumab", "approvalYear": 2017, "type": "PD-L1 억제제"}
+        ],
+        "limitations": "모든 환자에게 효과 X, PD-L1 발현율에 따라 효과 다름",
+        "breakthrough": "2013년 사이언스지 '올해의 연구' 선정"
+      }
+    ],
+    "survivalRateByPeriod": [
+      {"period": "1993-1995", "periodLabel": "1993", "year": 1993, "rate": 12.5, "generation": 1, "milestone": "암등록통계 시작", "description": "화학항암제 시대"},
+      {"period": "1996-2000", "periodLabel": "1998", "year": 1998, "rate": 14.3, "generation": 1, "milestone": "국가암관리사업 시작"},
+      {"period": "2001-2005", "periodLabel": "2003", "year": 2003, "rate": 16.6, "generation": 2, "milestone": "이레사 FDA 승인 (2003)", "description": "표적치료 시대 개막"},
+      {"period": "2006-2010", "periodLabel": "2008", "year": 2008, "rate": 20.3, "generation": 2, "milestone": "표적치료제 보편화"},
+      {"period": "2011-2015", "periodLabel": "2013", "year": 2013, "rate": 27.5, "generation": 2, "milestone": "면역항암제 연구 활발"},
+      {"period": "2016-2020", "periodLabel": "2018", "year": 2018, "rate": 35.1, "generation": 3, "milestone": "면역항암제 급여 확대", "description": "면역항암 시대"},
+      {"period": "2018-2022", "periodLabel": "2020", "year": 2020, "rate": 40.6, "generation": 3, "milestone": "병용요법 표준화", "description": "40% 돌파"}
+    ],
+    "keyMilestones": [
+      {"year": 1978, "event": "시스플라틴 FDA 승인", "impact": "화학항암 시대 시작", "generation": 1},
+      {"year": 2003, "event": "이레사 FDA 승인", "impact": "최초의 폐암 표적치료제", "generation": 2},
+      {"year": 2013, "event": "면역항암제 '올해의 연구'", "impact": "사이언스지 선정", "generation": 3},
+      {"year": 2014, "event": "키트루다 FDA 승인", "impact": "면역항암 시대 개막", "generation": 3},
+      {"year": 2015, "event": "타그리소 FDA 승인", "impact": "내성 극복 신약", "generation": 2},
+      {"year": 2018, "event": "타그리소 1차 치료 승인", "impact": "표적치료 1차 표준", "generation": 2},
+      {"year": 2020, "event": "폐암 5년 생존율 40% 돌파", "impact": "역사적 이정표", "generation": 3}
+    ]
+  },
+  "comparison": {
+    "generationComparison": [
+      {
+        "category": "작용 기전",
+        "gen1": "모든 분열 세포 공격",
+        "gen2": "암세포 특정 표적 공격",
+        "gen3": "면역세포 활성화"
+      },
+      {
+        "category": "부작용",
+        "gen1": "심각 (탈모, 구토, 면역저하)",
+        "gen2": "경미~중등도 (피부발진)",
+        "gen3": "경미 (자가면역 반응)"
+      },
+      {
+        "category": "치료 반응률",
+        "gen1": "20-30%",
+        "gen2": "60-80% (변이 있을 때)",
+        "gen3": "20-40% (단독), 50%+ (병용)"
+      },
+      {
+        "category": "지속 기간",
+        "gen1": "수개월",
+        "gen2": "1-2년 (내성 발생)",
+        "gen3": "수년~장기 생존"
+      },
+      {
+        "category": "대표 약물",
+        "gen1": "시스플라틴, 탁솔",
+        "gen2": "이레사, 타그리소",
+        "gen3": "키트루다, 옵디보"
+      }
+    ],
+    "survivalImprovement": {
+      "from1993To2022": {
+        "startRate": 12.5,
+        "endRate": 40.6,
+        "improvement": 28.1,
+        "multiple": 3.2,
+        "description": "30년간 3.2배 향상"
+      },
+      "byGeneration": [
+        {"generation": 1, "contribution": 4.1, "period": "1993-2003", "description": "화학항암제 개선"},
+        {"generation": 2, "contribution": 10.9, "period": "2003-2015", "description": "표적치료제 도입"},
+        {"generation": 3, "contribution": 13.1, "period": "2015-2022", "description": "면역항암제 혁신"}
+      ]
+    }
+  },
+  "stageData": {
+    "survivalByStage": [
+      {"stage": "1기", "rate": 80, "description": "조기 발견 시"},
+      {"stage": "2기", "rate": 50, "description": "국소 전이"},
+      {"stage": "3기", "rate": 30, "description": "진행성"},
+      {"stage": "4기", "rate": 5, "description": "전신 전이 (면역항암제 전)"},
+      {"stage": "4기 (면역항암제)", "rate": 20, "description": "면역항암제 치료 시"}
+    ],
+    "stage4Revolution": {
+      "before": 5,
+      "after": 20,
+      "improvement": 4,
+      "description": "4기 환자도 5년 장기생존 20% 달성"
+    }
+  },
+  "highlights": {
+    "mostDramatic": {
+      "category": "폐암 5년 생존율",
+      "from": 12.5,
+      "to": 40.6,
+      "change": 28.1,
+      "changeMultiple": 3.2,
+      "description": "1993년 12.5%에서 2022년 40.6%로 3.2배 향상. 가장 치명적인 암 중 하나에서 희망의 암으로."
+    },
+    "biggestBreakthrough": {
+      "category": "4기 폐암 장기 생존",
+      "before": "5% 미만",
+      "after": "20%",
+      "description": "면역항암제 등장 후 말기 환자도 5년 이상 생존 가능"
+    },
+    "koreanAchievement": {
+      "drug": "렉라자 (Lazertinib)",
+      "company": "유한양행/얀센",
+      "year": 2021,
+      "significance": "국내 개발 3세대 EGFR 표적치료제"
+    }
+  },
+  "keyInsights": [
+    {
+      "title": "패러다임 전환",
+      "content": "폐암 치료는 30년간 3번의 패러다임 전환을 겪었습니다. 무차별 공격에서 정밀 표적, 그리고 면역 활성화로.",
+      "icon": "paradigm"
+    },
+    {
+      "title": "3.2배의 기적",
+      "content": "가장 치명적인 암이었던 폐암의 5년 생존율이 12.5%에서 40.6%로 3.2배 향상되었습니다.",
+      "icon": "growth"
+    },
+    {
+      "title": "맞춤형 치료",
+      "content": "유전자 검사로 EGFR 변이 여부를 확인하고, 최적의 치료제를 선택하는 정밀의료 시대가 열렸습니다.",
+      "icon": "precision"
+    },
+    {
+      "title": "희망의 시대",
+      "content": "4기 말기 환자도 면역항암제로 5년 이상 장기 생존이 가능해졌습니다. 완치 사례도 보고되고 있습니다.",
+      "icon": "hope"
+    }
+  ],
+  "sources": [
+    {
+      "name": "국립암센터 중앙암등록본부",
+      "url": "https://www.cancer.go.kr",
+      "data": "5년 상대생존율 통계"
+    },
+    {
+      "name": "미국 FDA",
+      "url": "https://www.fda.gov",
+      "data": "항암제 승인 정보"
+    },
+    {
+      "name": "대한폐암학회",
+      "url": "https://lungca.or.kr",
+      "data": "폐암 치료 가이드라인"
+    },
+    {
+      "name": "보건복지부",
+      "url": "https://www.mohw.go.kr",
+      "data": "국가암등록통계"
+    }
+  ]
+}

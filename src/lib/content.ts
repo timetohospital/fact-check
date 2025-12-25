@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
-import { Article, ArticleFrontmatter } from "@/types/content";
+import { Article, ArticleFrontmatter, MainCategory, CATEGORIES } from "@/types/content";
 
 const CONTENT_DIR = path.join(process.cwd(), "src/content/articles");
 
@@ -46,6 +46,25 @@ export function getArticlesByCategory(category: string): Article[] {
   );
 }
 
+// 태그별 기사 필터링
+export function getArticlesByTag(tag: string): Article[] {
+  return getAllArticles().filter(
+    (article) => article.frontmatter.tags.includes(tag)
+  );
+}
+
+// 카테고리 display name 가져오기
+export function getCategoryDisplayName(slug: string): string {
+  const category = CATEGORIES[slug as MainCategory];
+  return category?.name || slug;
+}
+
+// 카테고리 설명 가져오기
+export function getCategoryDescription(slug: string): string {
+  const category = CATEGORIES[slug as MainCategory];
+  return category?.description || '';
+}
+
 export function getAllCategories(): string[] {
   const articles = getAllArticles();
   const categories = new Set(articles.map((a) => a.frontmatter.category));
@@ -55,5 +74,19 @@ export function getAllCategories(): string[] {
 export function getAllTags(): string[] {
   const articles = getAllArticles();
   const tags = new Set(articles.flatMap((a) => a.frontmatter.tags));
-  return Array.from(tags);
+  return Array.from(tags).sort();
+}
+
+// 태그별 기사 수 카운트
+export function getTagCounts(): Record<string, number> {
+  const articles = getAllArticles();
+  const counts: Record<string, number> = {};
+  
+  articles.forEach(article => {
+    article.frontmatter.tags.forEach(tag => {
+      counts[tag] = (counts[tag] || 0) + 1;
+    });
+  });
+  
+  return counts;
 }

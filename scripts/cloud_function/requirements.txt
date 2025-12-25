@@ -1,0 +1,5 @@
+functions-framework==3.*
+google-analytics-data==0.18.*
+psycopg2-binary==2.9.*
+openai==1.*
+pyyaml==6.*

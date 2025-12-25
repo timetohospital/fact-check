@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getArticlesByTagWithFallback, getAllTagsWithCount } from "@/lib/content-db";
+import { getArticlesByTagWithFallback, getAllTagsWithCountWithFallback } from "@/lib/content-db";
 import { Article } from "@/types/content";
 
 // 정적 빌드를 위한 태그 목록 생성
 export async function generateStaticParams() {
-  const tagsWithCount = await getAllTagsWithCount();
+  const tagsWithCount = await getAllTagsWithCountWithFallback();
   const tags = Object.keys(tagsWithCount);
   return tags.map((tag) => ({
     tag: encodeURIComponent(tag),

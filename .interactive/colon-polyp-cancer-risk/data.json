@@ -1,0 +1,309 @@
+{
+  "metadata": {
+    "title": "대장 용종 종류별 대장암으로의 발전 가능성",
+    "subtitle": "용종의 종류와 크기가 암 발생 위험을 결정한다",
+    "source": "서울대학교병원, 서울아산병원, Cleveland Clinic, NCBI/PMC, American Cancer Society",
+    "sourceUrls": [
+      "https://www.snuh.org/health/nMedInfo/nView.do?category=DIS&medid=AA000303",
+      "https://www.amc.seoul.kr/asan/healthinfo/disease/diseaseDetail.do?contentId=31776",
+      "https://my.clevelandclinic.org/health/diseases/15370-colon-polyps",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC6954345/",
+      "https://www.cancer.org/cancer/diagnosis-staging/tests/biopsy-and-cytology-tests/understanding-your-pathology-report/colon-pathology/colon-polyps-sessile-or-traditional-serrated-adenomas.html"
+    ],
+    "lastUpdated": "2024-12",
+    "category": "건강/의학"
+  },
+  "polypClassification": {
+    "neoplastic": {
+      "name": "종양성 용종 (Neoplastic)",
+      "description": "암으로 발전할 가능성이 있는 용종",
+      "types": [
+        {
+          "id": "tubular-adenoma",
+          "name": "관상 선종 (Tubular Adenoma)",
+          "nameEn": "Tubular Adenoma",
+          "prevalence": 80,
+          "prevalenceNote": "전체 선종의 80%",
+          "cancerRisk": 4.8,
+          "cancerRiskRange": "5% 미만",
+          "tenYearIncidence": 2.7,
+          "hazardRatio": 1.41,
+          "characteristics": [
+            "1cm 미만이 대부분",
+            "관(tube) 모양의 구조",
+            "저등급 이형성이 많음"
+          ],
+          "riskLevel": "low"
+        },
+        {
+          "id": "tubulovillous-adenoma",
+          "name": "관융모 선종 (Tubulovillous Adenoma)",
+          "nameEn": "Tubulovillous Adenoma",
+          "prevalence": 15,
+          "prevalenceNote": "전체 선종의 15%",
+          "cancerRisk": 19,
+          "cancerRiskRange": "15-25%",
+          "tenYearIncidence": 5.1,
+          "hazardRatio": 2.56,
+          "characteristics": [
+            "관상과 융모상의 혼합형",
+            "중간 크기가 많음",
+            "고등급 이형성 가능성"
+          ],
+          "riskLevel": "medium"
+        },
+        {
+          "id": "villous-adenoma",
+          "name": "융모 선종 (Villous Adenoma)",
+          "nameEn": "Villous Adenoma",
+          "prevalence": 5,
+          "prevalenceNote": "전체 선종의 5%",
+          "cancerRisk": 38.4,
+          "cancerRiskRange": "15-40%",
+          "tenYearIncidence": 8.6,
+          "hazardRatio": 3.82,
+          "characteristics": [
+            "융모(villous) 구조 우세",
+            "크기가 큰 경우 많음",
+            "4cm 이상일 때 40% 악성화"
+          ],
+          "riskLevel": "high"
+        },
+        {
+          "id": "sessile-serrated-lesion",
+          "name": "무경성 톱니모양 병변 (SSL)",
+          "nameEn": "Sessile Serrated Lesion",
+          "prevalence": 3.9,
+          "prevalenceNote": "전체 용종의 3.9%",
+          "cancerRisk": 10,
+          "cancerRiskRange": "10-15% (이형성 동반시)",
+          "tenYearIncidence": 2.5,
+          "hazardRatio": 1.77,
+          "characteristics": [
+            "톱니모양(serrated) 구조",
+            "빠른 악성 전환 가능",
+            "발견이 어려움"
+          ],
+          "riskLevel": "medium",
+          "warning": "작은 크기에서도 빠르게 암으로 진행 가능 (13개월 내 사례)"
+        },
+        {
+          "id": "traditional-serrated-adenoma",
+          "name": "전통적 톱니모양 선종 (TSA)",
+          "nameEn": "Traditional Serrated Adenoma",
+          "prevalence": 1,
+          "prevalenceNote": "인구의 1% 미만",
+          "cancerRisk": 15,
+          "cancerRiskRange": "15-30%",
+          "tenYearIncidence": 3.5,
+          "hazardRatio": 2.1,
+          "characteristics": [
+            "가장 희귀한 톱니모양 용종",
+            "뚜렷한 전암병변",
+            "두 가지 진행 경로 존재"
+          ],
+          "riskLevel": "medium-high"
+        }
+      ]
+    },
+    "nonNeoplastic": {
+      "name": "비종양성 용종 (Non-Neoplastic)",
+      "description": "암으로 발전하지 않는 용종",
+      "types": [
+        {
+          "id": "hyperplastic-polyp",
+          "name": "과형성 용종 (Hyperplastic Polyp)",
+          "nameEn": "Hyperplastic Polyp",
+          "prevalence": 20,
+          "prevalenceNote": "전체 용종의 약 20%",
+          "cancerRisk": 0,
+          "cancerRiskRange": "거의 0%",
+          "tenYearIncidence": 1.6,
+          "hazardRatio": 1.11,
+          "characteristics": [
+            "대부분 5mm 이하",
+            "제거 불필요",
+            "암으로 발전하지 않음"
+          ],
+          "riskLevel": "none",
+          "note": "간혹 선종과 혼합되어 톱니 선종으로 변화할 수 있음"
+        },
+        {
+          "id": "inflammatory-polyp",
+          "name": "염증성 용종",
+          "nameEn": "Inflammatory Polyp",
+          "prevalence": 5,
+          "cancerRisk": 0,
+          "characteristics": [
+            "염증 반응에 의해 생성",
+            "제거 불필요"
+          ],
+          "riskLevel": "none"
+        },
+        {
+          "id": "hamartomatous-polyp",
+          "name": "과오종",
+          "nameEn": "Hamartomatous Polyp",
+          "prevalence": 2,
+          "cancerRisk": 0,
+          "characteristics": [
+            "발달 이상에 의한 용종",
+            "일부 유전증후군과 관련"
+          ],
+          "riskLevel": "none"
+        }
+      ]
+    }
+  },
+  "sizeRisk": {
+    "title": "용종 크기별 암 발생 위험",
+    "data": [
+      {
+        "size": "<1cm",
+        "sizeLabel": "1cm 미만",
+        "cancerRisk": 1,
+        "description": "대부분 저위험"
+      },
+      {
+        "size": "1-2cm",
+        "sizeLabel": "1-2cm",
+        "cancerRisk": 10,
+        "description": "중간 위험"
+      },
+      {
+        "size": ">2cm",
+        "sizeLabel": "2cm 이상",
+        "cancerRisk": 40,
+        "description": "고위험, 35-50%"
+      },
+      {
+        "size": ">4cm",
+        "sizeLabel": "4cm 이상 (융모선종)",
+        "cancerRisk": 40,
+        "description": "융모선종의 경우 최대 40%"
+      }
+    ]
+  },
+  "timelineRisk": {
+    "title": "1cm 이상 용종의 시간별 암 발생 위험",
+    "data": [
+      { "years": 5, "cumulativeRisk": 4 },
+      { "years": 10, "cumulativeRisk": 14 },
+      { "years": 20, "cumulativeRisk": 37 }
+    ]
+  },
+  "agePrevalence": {
+    "title": "연령별 선종 발견율",
+    "data": [
+      { "age": "50세", "prevalence": 30 },
+      { "age": "60세", "prevalence": 40 },
+      { "age": "70세", "prevalence": 50 }
+    ]
+  },
+  "polypPathway": {
+    "traditional": {
+      "name": "전통적 선종-암 경로",
+      "percentage": 70,
+      "description": "대부분의 대장암 (70-75%)은 선종 → 암 경로로 발생",
+      "duration": "10-15년"
+    },
+    "serrated": {
+      "name": "톱니모양 병변 경로",
+      "percentage": 25,
+      "description": "약 25-30%의 대장암은 톱니모양 병변에서 발생",
+      "duration": "더 빠를 수 있음 (수개월~수년)",
+      "warning": "빠른 진행 가능"
+    }
+  },
+  "surveillanceGuidelines": {
+    "title": "추적 검사 권고",
+    "highRisk": {
+      "interval": "3년",
+      "criteria": [
+        "선종 3개 이상",
+        "10mm 이상 선종",
+        "관융모/융모 선종",
+        "고도이형성 선종",
+        "10mm 이상 톱니모양 용종"
+      ]
+    },
+    "lowRisk": {
+      "interval": "5-10년",
+      "criteria": [
+        "1-2개의 작은 관상 선종",
+        "저등급 이형성"
+      ]
+    }
+  },
+  "keyInsights": [
+    {
+      "id": 1,
+      "title": "모든 선종이 암이 되는 건 아니다",
+      "content": "선종의 약 5-10%만 실제로 대장암으로 진행합니다. 대부분의 용종은 제거하면 암 예방이 가능합니다.",
+      "icon": "shield"
+    },
+    {
+      "id": 2,
+      "title": "크기가 중요하다",
+      "content": "1cm 미만 용종의 암 위험은 1% 이하지만, 2cm 이상이면 35-50%로 급증합니다.",
+      "icon": "scale"
+    },
+    {
+      "id": 3,
+      "title": "융모 선종이 가장 위험",
+      "content": "융모 선종(Villous Adenoma)은 10년 내 암 발생률이 8.6%로, 관상 선종(2.7%)의 3배 이상입니다.",
+      "icon": "warning"
+    },
+    {
+      "id": 4,
+      "title": "톱니모양 병변 주의",
+      "content": "작아도 빠르게 암으로 진행할 수 있어 발견 시 반드시 제거해야 합니다.",
+      "icon": "clock"
+    },
+    {
+      "id": 5,
+      "title": "정기 검진이 핵심",
+      "content": "50세 이상은 30%에서 선종이 발견되며, 정기 대장내시경으로 대장암의 90% 이상을 예방할 수 있습니다.",
+      "icon": "calendar"
+    }
+  ],
+  "highlights": [
+    {
+      "number": "5-10%",
+      "label": "선종 → 암 진행률",
+      "description": "대부분의 선종은 암이 되지 않습니다"
+    },
+    {
+      "number": "40%",
+      "label": "2cm 이상 용종 암 위험",
+      "description": "크기가 커질수록 위험 급증"
+    },
+    {
+      "number": "38.4%",
+      "label": "융모선종 악성화율",
+      "description": "가장 위험한 용종 유형"
+    },
+    {
+      "number": "10-15년",
+      "label": "용종 → 암 진행 기간",
+      "description": "정기 검진으로 예방 가능"
+    }
+  ],
+  "comparisonData": {
+    "tenYearIncidence": [
+      { "type": "대조군 (용종 없음)", "value": 2.1, "color": "#10B981" },
+      { "type": "과형성 용종", "value": 1.6, "color": "#6EE7B7" },
+      { "type": "무경성 톱니모양 병변", "value": 2.5, "color": "#FBBF24" },
+      { "type": "관상 선종", "value": 2.7, "color": "#F59E0B" },
+      { "type": "관융모 선종", "value": 5.1, "color": "#EF4444" },
+      { "type": "융모 선종", "value": 8.6, "color": "#DC2626" }
+    ],
+    "hazardRatio": [
+      { "type": "과형성 용종", "value": 1.11, "baseline": 1.0 },
+      { "type": "관상 선종", "value": 1.41, "baseline": 1.0 },
+      { "type": "무경성 톱니모양 병변", "value": 1.77, "baseline": 1.0 },
+      { "type": "관융모 선종", "value": 2.56, "baseline": 1.0 },
+      { "type": "융모 선종", "value": 3.82, "baseline": 1.0 }
+    ]
+  }
+}

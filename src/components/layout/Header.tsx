@@ -3,11 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { CATEGORIES } from "@/types/content";
 
+// CATEGORIES 상수에서 동적으로 생성 + 추가 링크
 const categories = [
-  { name: "팩트체크", href: "/category/factcheck" },
-  { name: "암 환자 관리", href: "/category/cancer-care" },
-  { name: "건강정보", href: "/category/health-info" },
+  ...Object.values(CATEGORIES).map(cat => ({
+    name: cat.name,
+    href: `/category/${cat.slug}`
+  })),
   { name: "무료 AI상담", href: "/ai-consult" },
 ];
 
@@ -64,7 +67,7 @@ export function Header() {
                 key={cat.name}
                 href={cat.href}
                 style={{
-                  fontSize: "0.875rem",
+                  fontSize: "1rem",
                   fontWeight: 500,
                   color: "var(--foreground)",
                   transition: "color 0.2s",
@@ -128,7 +131,7 @@ export function Header() {
                 href={cat.href}
                 style={{
                   padding: "0.75rem 0",
-                  fontSize: "0.875rem",
+                  fontSize: "1rem",
                   fontWeight: 500,
                   color: "var(--foreground)",
                 }}

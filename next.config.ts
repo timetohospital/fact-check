@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
 
+  // Turbopack 설정 (Windows symlink 문제 해결)
+  turbopack: {
+    root: "C:/grum_code/fact-check",
+  },
+
   // SEO 최적화
   images: {
     formats: ["image/avif", "image/webp"],

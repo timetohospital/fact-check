@@ -1,0 +1,197 @@
+{
+  "metadata": {
+    "title": "한국 암환자 5년 상대생존율",
+    "description": "1993년부터 2022년까지 한국 암환자의 5년 상대생존율 변화",
+    "source": "국립암센터 중앙암등록본부",
+    "sourceUrl": "https://www.cancer.go.kr/lay1/S1T648C650/contents.do",
+    "lastUpdated": "2024-12-20",
+    "unit": "%",
+    "note": "5년 상대생존율은 암환자가 5년간 생존할 확률을 일반인과 비교한 값"
+  },
+  "timeline": [
+    {
+      "period": "1993-1995",
+      "periodLabel": "1993~1995",
+      "year": 1994,
+      "all": 42.9,
+      "milestone": "암등록통계 시작",
+      "description": "체계적인 암 통계 수집이 시작된 시기. 암 진단은 곧 사형선고나 다름없었다."
+    },
+    {
+      "period": "1996-2000",
+      "periodLabel": "1996~2000",
+      "year": 1998,
+      "all": 45.3,
+      "milestone": "국민암조기검진사업 시작 (1999)",
+      "description": "1999년 국가암조기검진사업이 시작되어 위암, 유방암, 자궁경부암 검진이 확대되었다."
+    },
+    {
+      "period": "2001-2005",
+      "periodLabel": "2001~2005",
+      "year": 2003,
+      "all": 54.2,
+      "milestone": "국민건강보험 통합 (2000)",
+      "description": "건강보험 통합으로 의료 접근성이 높아지고, 표적치료제가 도입되기 시작했다."
+    },
+    {
+      "period": "2006-2010",
+      "periodLabel": "2006~2010",
+      "year": 2008,
+      "all": 65.5,
+      "milestone": "암검진 확대, 표적치료 활성화",
+      "description": "대장암, 간암 검진이 추가되고 글리벡 등 표적치료제가 보편화되었다."
+    },
+    {
+      "period": "2011-2015",
+      "periodLabel": "2011~2015",
+      "year": 2013,
+      "all": 70.7,
+      "milestone": "면역항암제 등장",
+      "description": "면역관문억제제(키트루다, 옵디보 등)가 등장하며 치료 패러다임이 바뀌기 시작했다."
+    },
+    {
+      "period": "2016-2020",
+      "periodLabel": "2016~2020",
+      "year": 2018,
+      "all": 71.5,
+      "milestone": "정밀의학 시대",
+      "description": "유전자 분석 기반 맞춤 치료가 확산되고, AI 진단 보조 기술이 도입되었다."
+    },
+    {
+      "period": "2018-2022",
+      "periodLabel": "2018~2022",
+      "year": 2020,
+      "all": 72.9,
+      "milestone": "10명 중 7명 생존 시대",
+      "description": "암환자 10명 중 7명 이상이 5년 이상 생존하는 시대가 열렸다."
+    }
+  ],
+  "cancerTypes": {
+    "thyroid": {
+      "name": "갑상선암",
+      "nameEn": "Thyroid",
+      "color": "#10B981",
+      "data": [
+        { "period": "1993-1995", "rate": 94.2 },
+        { "period": "2001-2005", "rate": 98.5 },
+        { "period": "2011-2015", "rate": 100.2 },
+        { "period": "2018-2022", "rate": 100.1 }
+      ]
+    },
+    "prostate": {
+      "name": "전립선암",
+      "nameEn": "Prostate",
+      "color": "#3B82F6",
+      "data": [
+        { "period": "1993-1995", "rate": 55.9 },
+        { "period": "2001-2005", "rate": 80.5 },
+        { "period": "2011-2015", "rate": 94.1 },
+        { "period": "2018-2022", "rate": 96.4 }
+      ]
+    },
+    "breast": {
+      "name": "유방암",
+      "nameEn": "Breast",
+      "color": "#EC4899",
+      "data": [
+        { "period": "1993-1995", "rate": 78.0 },
+        { "period": "2001-2005", "rate": 88.5 },
+        { "period": "2011-2015", "rate": 92.7 },
+        { "period": "2018-2022", "rate": 94.3 }
+      ]
+    },
+    "stomach": {
+      "name": "위암",
+      "nameEn": "Stomach",
+      "color": "#F59E0B",
+      "data": [
+        { "period": "1993-1995", "rate": 42.8 },
+        { "period": "2001-2005", "rate": 57.7 },
+        { "period": "2011-2015", "rate": 74.8 },
+        { "period": "2018-2022", "rate": 78.4 }
+      ]
+    },
+    "colorectal": {
+      "name": "대장암",
+      "nameEn": "Colorectal",
+      "color": "#8B5CF6",
+      "data": [
+        { "period": "1993-1995", "rate": 54.8 },
+        { "period": "2001-2005", "rate": 66.6 },
+        { "period": "2011-2015", "rate": 76.3 },
+        { "period": "2018-2022", "rate": 74.3 }
+      ]
+    },
+    "liver": {
+      "name": "간암",
+      "nameEn": "Liver",
+      "color": "#EF4444",
+      "data": [
+        { "period": "1993-1995", "rate": 10.2 },
+        { "period": "2001-2005", "rate": 18.3 },
+        { "period": "2011-2015", "rate": 33.6 },
+        { "period": "2018-2022", "rate": 39.4 }
+      ]
+    },
+    "lung": {
+      "name": "폐암",
+      "nameEn": "Lung",
+      "color": "#6B7280",
+      "data": [
+        { "period": "1993-1995", "rate": 11.3 },
+        { "period": "2001-2005", "rate": 16.6 },
+        { "period": "2011-2015", "rate": 28.2 },
+        { "period": "2018-2022", "rate": 40.6 }
+      ]
+    },
+    "pancreas": {
+      "name": "췌장암",
+      "nameEn": "Pancreas",
+      "color": "#1F2937",
+      "data": [
+        { "period": "1993-1995", "rate": 9.4 },
+        { "period": "2001-2005", "rate": 7.6 },
+        { "period": "2011-2015", "rate": 10.8 },
+        { "period": "2018-2022", "rate": 16.5 }
+      ]
+    }
+  },
+  "highlights": {
+    "biggestImprovement": {
+      "cancer": "전립선암",
+      "from": 55.9,
+      "to": 96.4,
+      "change": 40.5,
+      "description": "PSA 검사 보급과 로봇수술 발전으로 가장 큰 생존율 향상"
+    },
+    "mostDramatic": {
+      "cancer": "폐암",
+      "from": 11.3,
+      "to": 40.6,
+      "change": 29.3,
+      "description": "면역항암제와 표적치료제의 획기적 발전"
+    },
+    "stillChallenging": {
+      "cancer": "췌장암",
+      "rate": 16.5,
+      "description": "조기 발견이 어렵고 진행이 빠른 암, 여전히 과제"
+    }
+  },
+  "keyInsights": [
+    {
+      "title": "30년간 30%p 향상",
+      "description": "1993년 42.9%에서 2022년 72.9%로, 암환자 생존율이 30%p 향상되었다.",
+      "icon": "trending-up"
+    },
+    {
+      "title": "10명 중 7명 생존",
+      "description": "현재 암 진단을 받아도 10명 중 7명 이상이 5년 이상 생존한다.",
+      "icon": "heart"
+    },
+    {
+      "title": "조기 발견이 핵심",
+      "description": "국한 병기 발견 시 92.1%, 원격전이 시 27.1%로 조기 검진이 생존의 핵심이다.",
+      "icon": "search"
+    }
+  ]
+}

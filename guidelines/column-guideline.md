@@ -8,7 +8,7 @@
 
 ```markdown
 ✅ 올바른 예시:
-"하루 30분 걷기는 심혈관 질환 위험을 35% 감소시킵니다(Harvard T.H. Chan School of Public Health, 2023)."
+"21년 하버드 연구에 따르면 하루 30분 걷는것 만으로도 심혈관 질환 위험이 35%이나 줄어듭니다."
 
 ❌ 잘못된 예시:
 "걷기 운동은 심장에 좋습니다."
@@ -35,7 +35,56 @@ sources:
 
 ## 2. 글쓰기 스타일
 
-### 2.1 두괄식 작성법 (Inverted Pyramid)
+### 2.1 가독성 포맷팅 규칙
+
+#### 문장 줄바꿈 (필수)
+
+**한 문장은 반드시 한 줄에 작성합니다.** 특히 제목, 부제목, 핵심 요약에서 엄격히 적용합니다.
+
+```markdown
+✅ 올바른 예시:
+"**공복 커피가 위를 망친다는 것은 과학적으로 입증되지 않은 속설입니다.**
+건강한 성인이라면 아침 공복에 커피 한 잔은 문제없습니다.
+다만 위장 질환이 있다면 식후로 시간을 바꾸는 것이 현명합니다."
+
+❌ 잘못된 예시:
+"**공복 커피가 위를 망친다는 것은 과학적으로 입증되지 않은 속설입니다.** 건강한 성인이라면 아침 공복에 커피 한 잔은 문제없습니다. 다만 위장 질환이 있다면 식후로 시간을 바꾸는 것이 현명합니다."
+```
+
+#### 리스트 작성 규칙 (필수)
+
+**3개 이상의 항목을 나열할 때는 반드시 숫자 또는 불릿포인트를 사용합니다.**
+
+```markdown
+✅ 올바른 예시:
+주의가 필요한 그룹:
+1. 역류성 식도염 환자
+2. 활동성 위염이나 위궤양 환자
+3. 카페인 민감자
+
+❌ 잘못된 예시:
+주의가 필요한 그룹은 역류성 식도염 환자, 활동성 위염이나 위궤양 환자, 카페인 민감자입니다.
+```
+
+#### 폰트 스타일 규칙
+
+| 스타일 | 사용 여부 | 용도 |
+|--------|----------|------|
+| **Bold** | ✅ 허용 | 핵심 답변, 중요 수치, 강조 |
+| *Italic* | ❌ **금지** | 한글 가독성 저하로 절대 사용 금지 |
+| ~~취소선~~ | ⚠️ 제한 | 팩트체크에서 오류 표시 시에만 사용 |
+
+```markdown
+✅ 올바른 강조:
+"**아니요, 사실이 아닙니다.** 2013년 연구에서..."
+
+❌ 잘못된 강조:
+"*아니요, 사실이 아닙니다.* 2013년 연구에서..."
+```
+
+---
+
+### 2.2 두괄식 작성법 (Inverted Pyramid)
 
 **첫 문장에서 핵심 결론을 던지세요. 독자의 이목을 단 1초도 놓치지 마세요.**
 
@@ -49,7 +98,7 @@ sources:
 그 중에서도 음주에 대한 궁금증이 많은데요... (중략) ...결론적으로 소량은 가능합니다."
 ```
 
-### 2.2 전문적이지만 쉬운 설명
+### 2.3 전문적이지만 쉬운 설명
 
 **의학 용어는 즉시 풀어서 설명하세요.**
 
@@ -142,8 +191,6 @@ title: "[주제] 정말 [주장]일까? [팩트체크]"
 category: "wellness"
 ---
 
-# [제목]
-
 **[첫 문장: 결론을 먼저 제시]**
 
 > **핵심 요약**
@@ -183,13 +230,14 @@ category: "wellness"
 
 ### Q: [질문 2]?
 **A:** [답변]
-
----
-
-**Sources:**
-1. [저자 (연도). 논문 제목](URL)
-2. [기관명 (연도). 보고서 제목](URL)
 ```
+
+> **⚠️ 중요 1 - 제목 중복 금지**: 본문에서 `# 제목`을 작성하지 마세요!
+> 제목은 frontmatter의 `title`에서 자동으로 헤더에 표시됩니다.
+> 본문은 바로 첫 문장(결론)부터 시작합니다.
+
+> **⚠️ 중요 2 - 참고문헌은 Frontmatter에만**: 본문에 `## 참고 문헌` 섹션을 작성하지 마세요!
+> 출처는 frontmatter의 `sources` 필드에 URL과 함께 작성하면 자동으로 페이지 하단에 클릭 가능한 링크로 표시됩니다.
 
 ---
 
@@ -207,13 +255,16 @@ category: "wellness"
 - [ ] 모든 주장에 출처가 있는가?
 - [ ] 의학 용어를 쉽게 풀어썼는가?
 - [ ] 표와 리스트를 적절히 활용했는가?
+- [ ] **한 문장 = 한 줄** 규칙을 지켰는가?
+- [ ] 3개 이상 나열 시 숫자/불릿포인트를 사용했는가?
+- [ ] Italic을 사용하지 않았는가?
 
 ### 작성 후 확인
 
 - [ ] 제목이 60자 이내인가?
 - [ ] 메타 설명이 155자 이내인가?
 - [ ] FAQ 섹션이 포함되어 있는가?
-- [ ] Sources에 클릭 가능한 URL이 있는가?
+- [ ] Frontmatter `sources`에 URL이 포함되어 있는가?
 - [ ] 의료 면책 조항이 포함되어 있는가?
 
 ---
@@ -234,15 +285,25 @@ category: "wellness"
    - "약을 끊으세요" ❌
    - "의사와 상담 후 결정하세요" ✅
 
-4. **저작권 침해**
-   - 이미지 무단 사용 ❌
-   - Unsplash, Pexels 등 라이선스 이미지 ✅
+4. **이미지 출처 제한**
+   - 웹에서 가져온 이미지 사용 ❌ (Unsplash, Pexels 포함)
+   - AI 생성 이미지만 허용 ✅ (아래 9번 섹션 참조)
+
+5. **Italic 사용 금지**
+   - 한글에서 Italic은 가독성을 심각하게 저하 ❌
+   - 강조가 필요하면 **Bold**만 사용 ✅
+
+6. **본문에 참고문헌 섹션 금지**
+   - 본문에 `## 참고 문헌` 또는 `## Sources` 작성 ❌
+   - Frontmatter `sources`에 URL 포함하여 작성 ✅ (자동으로 링크 표시됨)
 
 ---
 
-## 7. 카테고리 및 검수팀
+## 7. 카테고리 및 태그 시스템
 
-### 7.1 카테고리 분류
+### 7.1 메인 카테고리 (3개)
+
+모든 콘텐츠는 반드시 아래 3개 카테고리 중 하나를 선택합니다.
 
 | 카테고리 | 영문 slug | 설명 |
 |---------|----------|------|
@@ -251,7 +312,7 @@ category: "wellness"
 | 정신건강 | mental-health | 심리, 정신과, 수면 관련 |
 | 암 | cancer | 암 환자 관리, 종양학 |
 
-### 7.2 검수팀 명명 규칙
+### 7.3 검수팀 명명 규칙
 
 **중요: 개인 실명이나 병원명을 사용하지 않습니다.**
 
@@ -303,6 +364,98 @@ sources:
 
 ---
 
-**버전**: 1.0
+## 9. AI 이미지 생성 가이드라인
+
+### 9.1 필수 원칙
+
+**모든 이미지는 AI로 직접 생성해야 합니다. 웹에서 가져온 이미지는 절대 사용 불가.**
+
+| 구분 | 허용 | 금지 |
+|------|------|------|
+| AI 생성 이미지 | ✅ | - |
+| Unsplash/Pexels | ❌ | 라이선스 있어도 사용 금지 |
+| 구글 이미지 검색 | ❌ | 저작권 문제 |
+| 다른 사이트 이미지 | ❌ | 무단 사용 금지 |
+
+### 9.2 이미지 스타일 규격
+
+**고화질 실사(Photorealistic) 이미지를 생성합니다.**
+
+#### 필수 요구사항
+
+1. **실사 퀄리티**: 사진처럼 보이는 고해상도 이미지
+2. **상징적 표현**: 글의 핵심 내용을 시각적으로 전달
+3. **의료 친화적**: 건강/의료 콘텐츠에 적합한 깔끔하고 신뢰감 있는 분위기
+4. **밝고 긍정적**: 불안감을 주지 않는 따뜻하고 희망적인 톤
+
+### 9.3 프롬프트 가이드
+
+#### 기본 프롬프트 구조
+
+```
+[주제 설명], photorealistic, high quality, 8K resolution,
+professional healthcare photography style,
+warm lighting, clean composition, hopeful atmosphere
+```
+
+#### 주제별 프롬프트 예시
+
+**식단/영양 관련**
+```
+Fresh colorful healthy breakfast with coffee cup and fruits on modern kitchen table,
+photorealistic, high quality, natural morning light, warm tones,
+professional food photography style, clean and inviting atmosphere
+```
+
+**의료/질병 관련**
+```
+Doctor and patient having friendly consultation in modern bright clinic,
+photorealistic, high quality, professional healthcare setting,
+warm and reassuring atmosphere, natural lighting, hopeful mood
+```
+
+**정신건강 관련**
+```
+Person peacefully meditating in serene natural environment,
+photorealistic, high quality, soft morning light,
+calm and peaceful atmosphere, wellness and mindfulness concept
+```
+
+**암 환자 관리**
+```
+Cancer survivor enjoying healthy lifestyle with family support,
+photorealistic, high quality, warm emotional lighting,
+hopeful and encouraging atmosphere, symbol of recovery and strength
+```
+
+### 9.4 이미지 체크리스트
+
+생성 후 확인사항:
+
+- [ ] 실사처럼 보이는가? (만화/일러스트 스타일 ❌)
+- [ ] 글의 핵심 내용을 상징하는가?
+- [ ] 의료 콘텐츠에 적합한 분위기인가?
+- [ ] 해상도가 충분한가? (최소 1920x1080)
+- [ ] 워터마크가 없는가?
+- [ ] 과도하게 선정적이거나 불안감을 주지 않는가?
+
+### 9.5 Frontmatter 이미지 표기
+
+```yaml
+image: "/images/articles/[slug]-thumbnail.jpg"
+imageAlt: "[이미지 설명 - 접근성을 위해 필수]"
+imageCredit: "AI Generated by Claude/DALL-E/Midjourney"
+```
+
+**주의**: 이미지 파일은 `/public/images/articles/` 폴더에 저장합니다.
+
+---
+
+**버전**: 1.2
 **최종 수정**: 2025-01-20
 **작성자**: 365 Health 편집팀
+
+### 변경 이력
+- v1.2: 가독성 포맷팅 규칙 추가 (문장 줄바꿈, 리스트 규칙, Italic 금지), 출처 중복 방지 가이드 추가
+- v1.1: SEO/AEO 최적화 섹션 추가
+- v1.0: 초기 버전

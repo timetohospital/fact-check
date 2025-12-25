@@ -1,20 +1,138 @@
 @import "tailwindcss";
 
-:root {
-  /* Clean Medical Magazine Palette */
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --primary: #0f766e;
-  --primary-light: #14b8a6;
-  --secondary: #f8fafc;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --accent: #0891b2;
+/* Pretendard 웹폰트 - CDN (jsDelivr) */
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 100;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Thin.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 200;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-ExtraLight.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Light.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Medium.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-SemiBold.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Bold.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 800;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-ExtraBold.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 900;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Black.woff2') format('woff2');
+  font-display: swap;
 }
 
-* {
-  margin: 0;
-  padding: 0;
+:root {
+  /* ===== Medical Fact-Check Design System =====
+   * Based on anticancer-generations color palette
+   * Primary: Blue (trust, medical authority)
+   * Success: Green (positive outcomes, health)
+   * Neutral: Gray (generations, secondary info)
+   */
+
+  /* Base Colors */
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+
+  /* Primary - Blue (Medical Trust) */
+  --primary: #3B82F6;           /* Blue-500 - Main brand */
+  --primary-dark: #2563EB;      /* Blue-600 - Hover, emphasis */
+  --primary-light: #60A5FA;     /* Blue-400 - Light accents */
+  --primary-muted: #DBEAFE;     /* Blue-100 - Backgrounds */
+
+  /* Success - Green (Health, Positive) */
+  --success: #10B981;           /* Green-500 - Success states */
+  --success-dark: #059669;      /* Green-600 - Hover */
+  --success-light: #34D399;     /* Green-400 - Light accents */
+  --success-muted: #D1FAE5;     /* Green-100 - Backgrounds */
+
+  /* Neutral - Gray (Secondary Info) */
+  --muted: #6B7280;             /* Gray-500 - Secondary text */
+  --muted-dark: #4B5563;        /* Gray-600 - Emphasized secondary */
+  --muted-light: #9CA3AF;       /* Gray-400 - Disabled, hints */
+  --muted-foreground: #6B7280;  /* Gray-500 - Muted text */
+
+  /* Semantic Colors */
+  --secondary: #f8fafc;         /* Slate-50 - Secondary backgrounds */
+  --border: #e2e8f0;            /* Slate-200 - Borders */
+  --accent: #3B82F6;            /* Blue-500 - Accent (same as primary) */
+
+  /* Warning/Danger (for risk indicators) */
+  --warning: #F59E0B;           /* Amber-500 */
+  --danger: #EF4444;            /* Red-500 */
+  --danger-dark: #DC2626;       /* Red-600 */
+
+  /* Chart Colors (consistent across all visualizations)
+   * 절제된 3색 팔레트 - anticancer-generations 스타일
+   * Green(안전) → Gray(중립) → Blue(고위험)
+   * Red/Orange 제거하여 의료 신뢰감 강화 */
+  --chart-gen1: #6B7280;        /* Gray-500 - 1세대, 과거 */
+  --chart-gen2: #3B82F6;        /* Blue-500 - 2세대, 현재 */
+  --chart-gen3: #10B981;        /* Green-500 - 3세대, 미래 */
+  --chart-risk-low: #10B981;    /* Green-500 - 낮은 위험 (안전) */
+  --chart-risk-medium: #6B7280; /* Gray-500 - 중간 위험 (중립) */
+  --chart-risk-high: #1E40AF;   /* Blue-800 - 높은 위험 (진한 블루) */
+
+  /* shadcn/ui compatibility */
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --secondary-foreground: #1a1a1a;
+  --accent-foreground: #ffffff;
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
+  --ring: #3B82F6;
+  --radius: 0.5rem;
+}
+
+/* Tailwind preflight handles reset - removed custom reset that was overriding utilities */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -23,11 +141,14 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background-color: var(--background);
   color: var(--foreground);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  /* 한글 단어 단위 줄바꿈 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 /* Typography */
@@ -69,3 +190,14 @@ img {
   white-space: nowrap;
   border: 0;
 }
+
+/* ===== Scroll Snap - DISABLED =====
+ *
+ * 스크롤 스냅은 사용자 경험을 해칠 수 있어 비활성화됨.
+ * 자연스러운 스크롤이 Scrollytelling에 더 적합함.
+ *
+ * 필요시 아래 주석을 해제하여 사용 가능:
+ * - .page-scroll-snap: 전체 페이지 스냅
+ * - .scroll-step-snap: 개별 스텝 스냅
+ * - .scrolly-snap-container-isolated: 독립 스크롤 영역 스냅
+ */

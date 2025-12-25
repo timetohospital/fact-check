@@ -1,0 +1,279 @@
+{
+  "title": "항암제 3세대 혁명",
+  "subtitle": "30년간 폐암 생존율 3.2배 향상의 비밀",
+  "author": "데이터 저널리즘 팀",
+  "publishDate": "2024-12-21",
+  "readingTime": "12분",
+  "style": "hybrid",
+  "depth": "deep",
+
+  "acts": {
+    "act1_introduction": {
+      "title": "암흑의 시대",
+      "theme": "1990년대 폐암의 절망적 현실",
+      "steps": [1, 2, 3],
+      "emotion": "shocking"
+    },
+    "act2_development": {
+      "title": "혁신의 물결",
+      "theme": "3세대에 걸친 항암제 발전",
+      "steps": [4, 5, 6, 7, 8, 9, 10],
+      "emotion": "hopeful"
+    },
+    "act3_conclusion": {
+      "title": "희망의 시대",
+      "theme": "현재와 미래의 폐암 치료",
+      "steps": [11, 12],
+      "emotion": "triumphant"
+    }
+  },
+
+  "steps": [
+    {
+      "index": 1,
+      "act": 1,
+      "title": "사형선고와 같았던 폐암",
+      "content": "1990년대, 폐암 진단은 곧 사형선고였습니다. 5년 생존율 단 12.5%. 10명 중 9명은 5년을 넘기지 못했습니다.",
+      "highlight": "12.5%",
+      "highlightLabel": "1993년 5년 생존율",
+      "emotion": "shocking",
+      "chartState": {
+        "type": "survivalLine",
+        "focusYear": "1993-1995",
+        "highlightGeneration": null,
+        "animation": "fade-in",
+        "showAnnotation": true
+      }
+    },
+    {
+      "index": 2,
+      "act": 1,
+      "title": "무차별 폭격, 화학항암제",
+      "content": "당시 유일한 무기는 시스플라틴, 탁솔 같은 화학항암제였습니다. 암세포뿐 아니라 정상 세포까지 공격해 탈모, 구토, 면역력 저하... 환자들은 치료 자체가 고통이었습니다.",
+      "highlight": "1세대",
+      "highlightLabel": "세포독성 항암제",
+      "emotion": "heavy",
+      "chartState": {
+        "type": "generationTimeline",
+        "focusGeneration": 1,
+        "highlightDrugs": ["시스플라틴", "탁솔"],
+        "animation": "highlight"
+      }
+    },
+    {
+      "index": 3,
+      "act": 1,
+      "title": "한계에 부딪힌 1세대",
+      "content": "10년간의 연구에도 불구하고 생존율 개선은 미미했습니다. 1993년 12.5%에서 2000년 14.3%로 고작 1.8%p 향상. 암과의 전쟁에서 인류는 고전하고 있었습니다.",
+      "highlight": "+1.8%p",
+      "highlightLabel": "7년간 개선",
+      "emotion": "frustrated",
+      "chartState": {
+        "type": "survivalLine",
+        "focusPeriod": ["1993-1995", "1996-2000"],
+        "highlightChange": true,
+        "animation": "slow-progress"
+      }
+    },
+    {
+      "index": 4,
+      "act": 2,
+      "title": "2003년, 게임 체인저의 등장",
+      "content": "2003년 5월, 세계 최초의 폐암 표적치료제 '이레사(Gefitinib)'가 FDA 승인을 받았습니다. 암세포만 골라 공격하는 '스마트 미사일'의 시대가 열렸습니다.",
+      "highlight": "이레사",
+      "highlightLabel": "최초의 폐암 표적치료제",
+      "emotion": "breakthrough",
+      "chartState": {
+        "type": "drugTimeline",
+        "focusDrug": "이레사",
+        "year": 2003,
+        "highlightMilestone": true,
+        "animation": "zoom-in"
+      }
+    },
+    {
+      "index": 5,
+      "act": 2,
+      "title": "EGFR 변이의 발견",
+      "content": "핵심은 EGFR 유전자 변이였습니다. 이 변이가 있는 환자에게 표적치료제는 60-80%의 높은 반응률을 보였습니다. '맞춤형 치료'의 시대가 시작된 것입니다.",
+      "highlight": "60-80%",
+      "highlightLabel": "변이 환자 반응률",
+      "emotion": "hopeful",
+      "chartState": {
+        "type": "comparison",
+        "compare": ["화학항암제", "표적치료제"],
+        "metric": "반응률",
+        "animation": "slide-compare"
+      }
+    },
+    {
+      "index": 6,
+      "act": 2,
+      "title": "내성의 벽",
+      "content": "하지만 표적치료제에도 한계가 있었습니다. 평균 1-2년이 지나면 암세포는 T790M이라는 새로운 돌연변이를 만들어 내성을 갖게 됩니다.",
+      "highlight": "T790M",
+      "highlightLabel": "내성 돌연변이",
+      "emotion": "setback",
+      "chartState": {
+        "type": "resistancePath",
+        "showMutation": true,
+        "animation": "mutation-appear"
+      }
+    },
+    {
+      "index": 7,
+      "act": 2,
+      "title": "내성을 넘어서: 타그리소",
+      "content": "2015년, 3세대 표적치료제 '타그리소(Osimertinib)'가 등장했습니다. T790M 돌연변이까지 공격할 수 있는 이 약물은 내성의 벽을 무너뜨렸습니다.",
+      "highlight": "타그리소",
+      "highlightLabel": "3세대 EGFR-TKI",
+      "emotion": "breakthrough",
+      "chartState": {
+        "type": "drugTimeline",
+        "focusDrug": "타그리소",
+        "year": 2015,
+        "showEvolution": ["이레사", "타세바", "타그리소"],
+        "animation": "evolution"
+      }
+    },
+    {
+      "index": 8,
+      "act": 2,
+      "title": "2013년, 사이언스가 주목한 혁신",
+      "content": "2013년, 사이언스지는 '올해의 연구'로 면역항암제를 선정했습니다. 암세포를 직접 공격하는 대신, 우리 몸의 면역 시스템을 깨워 암과 싸우게 하는 완전히 새로운 접근이었습니다.",
+      "highlight": "2013",
+      "highlightLabel": "올해의 연구",
+      "emotion": "paradigm-shift",
+      "chartState": {
+        "type": "paradigmShift",
+        "from": "표적치료",
+        "to": "면역치료",
+        "year": 2013,
+        "animation": "paradigm-change"
+      }
+    },
+    {
+      "index": 9,
+      "act": 2,
+      "title": "면역항암제 시대의 개막",
+      "content": "2014년 키트루다, 2015년 옵디보가 연이어 FDA 승인을 받았습니다. PD-1/PD-L1을 차단해 면역세포가 암을 인식하고 공격할 수 있게 하는 '면역관문억제제'입니다.",
+      "highlight": "3세대",
+      "highlightLabel": "면역항암제",
+      "emotion": "hopeful",
+      "chartState": {
+        "type": "generationTimeline",
+        "focusGeneration": 3,
+        "highlightDrugs": ["키트루다", "옵디보"],
+        "year": [2014, 2015],
+        "animation": "dual-highlight"
+      }
+    },
+    {
+      "index": 10,
+      "act": 2,
+      "title": "말기 환자에게도 희망을",
+      "content": "면역항암제의 가장 놀라운 점은 4기 말기 환자에게도 효과를 보인다는 것입니다. 기존 5% 미만이던 4기 환자의 5년 생존율이 20%까지 향상되었습니다. 4배의 기적입니다.",
+      "highlight": "20%",
+      "highlightLabel": "4기 환자 5년 생존",
+      "emotion": "triumphant",
+      "chartState": {
+        "type": "stageComparison",
+        "stage": 4,
+        "before": 5,
+        "after": 20,
+        "animation": "dramatic-increase"
+      }
+    },
+    {
+      "index": 11,
+      "act": 3,
+      "title": "40%를 돌파하다",
+      "content": "2022년, 폐암 5년 생존율이 마침내 40%를 넘어섰습니다. 30년 전 12.5%에서 40.6%로, 무려 3.2배 향상. 한국 의학의 쾌거입니다.",
+      "highlight": "40.6%",
+      "highlightLabel": "2022년 5년 생존율",
+      "emotion": "triumphant",
+      "chartState": {
+        "type": "survivalLine",
+        "focusYear": "2018-2022",
+        "showFullJourney": true,
+        "highlightEnd": true,
+        "animation": "celebrate"
+      }
+    },
+    {
+      "index": 12,
+      "act": 3,
+      "title": "내일의 희망",
+      "content": "항암제는 지금도 진화 중입니다. CAR-T 세포치료제, ADC 항체약물접합체... 4세대 항암제가 준비되고 있습니다. 폐암은 더 이상 '사형선고'가 아닙니다.",
+      "highlight": "3.2배",
+      "highlightLabel": "30년간 생존율 향상",
+      "emotion": "hopeful-future",
+      "chartState": {
+        "type": "generationOverview",
+        "showAll": true,
+        "highlightProgress": true,
+        "animation": "final-summary"
+      }
+    }
+  ],
+
+  "interactions": {
+    "nytStyle": {
+      "enabled": true,
+      "scrollTrigger": true,
+      "stickyChart": true,
+      "transitionDuration": 500
+    },
+    "puddingStyle": {
+      "enabled": true,
+      "generationFilter": true,
+      "drugExplorer": true,
+      "comparisonToggle": true
+    }
+  },
+
+  "highlights": [
+    {
+      "id": "survival-improvement",
+      "title": "3.2배 향상",
+      "value": 28.1,
+      "unit": "%p",
+      "description": "30년간 폐암 5년 생존율이 12.5%에서 40.6%로 3.2배 향상",
+      "icon": "trending-up"
+    },
+    {
+      "id": "stage4-hope",
+      "title": "4배의 기적",
+      "value": 4,
+      "unit": "배",
+      "description": "4기 환자 5년 생존율 5% → 20%",
+      "icon": "heart-pulse"
+    },
+    {
+      "id": "three-generations",
+      "title": "3세대 혁신",
+      "value": 3,
+      "unit": "세대",
+      "description": "화학항암제 → 표적치료제 → 면역항암제",
+      "icon": "layers"
+    }
+  ],
+
+  "keyInsights": [
+    {
+      "title": "패러다임의 전환",
+      "content": "폐암 치료는 '무차별 공격'에서 '정밀 타격', 그리고 '면역 활성화'로 3번의 패러다임 전환을 겪었습니다.",
+      "relatedSteps": [2, 4, 8]
+    },
+    {
+      "title": "유전자 검사의 중요성",
+      "content": "EGFR 변이 검사를 통해 표적치료제 적합 여부를 확인하는 것이 치료 성공의 첫걸음입니다.",
+      "relatedSteps": [5]
+    },
+    {
+      "title": "조기 발견의 힘",
+      "content": "1기 발견 시 5년 생존율 80%. 저선량 CT 검사를 통한 조기 발견이 여전히 가장 중요합니다.",
+      "relatedSteps": [11]
+    }
+  ]
+}

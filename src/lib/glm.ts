@@ -340,15 +340,16 @@ YAML Frontmatter와 함께 구조화된 건강 아티클 작성
   /**
    * 에러 처리
    */
-  private handleError(error: any): Error {
-    if (error.response) {
+  private handleError(error: unknown): Error {
+    const err = error as { response?: { status?: number; data?: { error?: { message?: string } } }; request?: unknown; message?: string };
+    if (err.response) {
       // API 응답 에러
-      const status = error.response.status;
-      const data = error.response.data;
+      const status = err.response.status;
+      const data = err.response.data;
 
       switch (status) {
         case 400:
-          return new Error(`Bad Request: ${data.error?.message || 'Invalid request parameters'}`);
+          return new Error(`Bad Request: ${data?.error?.message || 'Invalid request parameters'}`);
         case 401:
           return new Error(`Unauthorized: Invalid API key or insufficient permissions`);
         case 429:
@@ -356,14 +357,14 @@ YAML Frontmatter와 함께 구조화된 건강 아티클 작성
         case 500:
           return new Error(`Internal Server Error: GLM API server error`);
         default:
-          return new Error(`API Error (${status}): ${data.error?.message || 'Unknown error'}`);
+          return new Error(`API Error (${status}): ${data?.error?.message || 'Unknown error'}`);
       }
-    } else if (error.request) {
+    } else if (err.request) {
       // 네트워크 에러
       return new Error(`Network Error: Unable to connect to GLM API`);
     } else {
       // 기타 에러
-      return new Error(`Error: ${error.message}`);
+      return new Error(`Error: ${err.message || 'Unknown error'}`);
     }
   }
 

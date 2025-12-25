@@ -1,0 +1,329 @@
+{
+  "metadata": {
+    "title": "한국 암환자 5년 상대생존율 30년 변화 (1993-2022)",
+    "source": "국립암센터 중앙암등록본부, 보건복지부",
+    "sourceUrl": "https://www.cancer.go.kr/lay1/S1T648C650/contents.do",
+    "lastUpdated": "2024-12-20",
+    "license": "공공누리 제1유형",
+    "description": "1993년부터 2022년까지 약 30년간 한국 암환자의 5년 상대생존율 변화 추이. 전체 암 생존율은 41.2%에서 72.9%로 31.7%p 향상되었으며, 특히 폐암(28.1%p), 위암(34.5%p), 간암(27.6%p)에서 극적인 개선이 있었음.",
+    "dataQuality": {
+      "officialSource": true,
+      "verified": true,
+      "timeSpan": "1993-2022 (30년)",
+      "dataPoints": 6
+    }
+  },
+  "timeline": [
+    {
+      "period": "1993-1995",
+      "value": 41.2,
+      "label": "암 생존율 40% 시대",
+      "milestone": "국가암관리사업 시작 전"
+    },
+    {
+      "period": "1996-2000",
+      "value": 44.0,
+      "label": "국가암관리사업 시작",
+      "milestone": "1996년 국가암관리사업 출범"
+    },
+    {
+      "period": "2001-2005",
+      "value": 54.2,
+      "label": "50% 돌파",
+      "milestone": "암 생존율 50% 시대 진입"
+    },
+    {
+      "period": "2006-2010",
+      "value": 65.5,
+      "label": "암 생존율 60% 시대",
+      "milestone": "의료기술 발전 및 조기검진 확대"
+    },
+    {
+      "period": "2011-2015",
+      "value": 70.3,
+      "label": "70% 돌파",
+      "milestone": "암 생존율 70% 시대 진입"
+    },
+    {
+      "period": "2018-2022",
+      "value": 72.9,
+      "label": "10명 중 7명 생존",
+      "milestone": "현대 암 치료의 성과"
+    }
+  ],
+  "categories": {
+    "thyroid": {
+      "name": "갑상선암",
+      "color": "#8B5CF6",
+      "description": "가장 높은 생존율을 보이는 암",
+      "data": [
+        { "period": "1993-1995", "value": 94.5 },
+        { "period": "2001-2005", "value": 98.3 },
+        { "period": "2006-2010", "value": 99.8 },
+        { "period": "2018-2022", "value": 100.1 }
+      ]
+    },
+    "prostate": {
+      "name": "전립선암",
+      "color": "#3B82F6",
+      "description": "가장 큰 생존율 향상을 보인 암",
+      "data": [
+        { "period": "1993-1995", "value": 59.2 },
+        { "period": "2001-2005", "value": 81.0 },
+        { "period": "2006-2010", "value": 80.2 },
+        { "period": "2018-2022", "value": 96.4 }
+      ]
+    },
+    "breast": {
+      "name": "유방암",
+      "color": "#EC4899",
+      "description": "여성암 중 높은 생존율",
+      "data": [
+        { "period": "1993-1995", "value": 79.3 },
+        { "period": "2001-2005", "value": 88.7 },
+        { "period": "2006-2010", "value": 91.0 },
+        { "period": "2018-2022", "value": 94.3 }
+      ]
+    },
+    "stomach": {
+      "name": "위암",
+      "color": "#10B981",
+      "description": "한국에서 큰 생존율 개선",
+      "data": [
+        { "period": "1993-1995", "value": 43.9 },
+        { "period": "2001-2005", "value": 58.0 },
+        { "period": "2006-2010", "value": 67.0 },
+        { "period": "2018-2022", "value": 78.4 }
+      ]
+    },
+    "colorectal": {
+      "name": "대장암",
+      "color": "#F59E0B",
+      "description": "꾸준한 생존율 향상",
+      "data": [
+        { "period": "1993-1995", "value": 56.2 },
+        { "period": "2001-2005", "value": 67.0 },
+        { "period": "2006-2010", "value": 72.6 },
+        { "period": "2018-2022", "value": 74.6 }
+      ]
+    },
+    "lung": {
+      "name": "폐암",
+      "color": "#EF4444",
+      "description": "가장 극적인 생존율 향상 (28.1%p)",
+      "data": [
+        { "period": "1993-1995", "value": 12.5 },
+        { "period": "2001-2005", "value": 16.6 },
+        { "period": "2006-2010", "value": 19.7 },
+        { "period": "2018-2022", "value": 40.6 }
+      ]
+    },
+    "liver": {
+      "name": "간암",
+      "color": "#F97316",
+      "description": "큰 폭의 생존율 개선 (27.6%p)",
+      "data": [
+        { "period": "1993-1995", "value": 11.8 },
+        { "period": "2001-2005", "value": 20.6 },
+        { "period": "2006-2010", "value": 26.7 },
+        { "period": "2018-2022", "value": 39.4 }
+      ]
+    },
+    "pancreas": {
+      "name": "췌장암",
+      "color": "#6B7280",
+      "description": "여전히 치료가 어려운 암",
+      "data": [
+        { "period": "1993-1995", "value": 10.7 },
+        { "period": "2001-2005", "value": 8.5 },
+        { "period": "2006-2010", "value": 8.0 },
+        { "period": "2018-2022", "value": 16.5 }
+      ]
+    },
+    "kidney": {
+      "name": "신장암",
+      "color": "#14B8A6",
+      "description": "높은 생존율 개선",
+      "data": [
+        { "period": "1993-1995", "value": 64.3 },
+        { "period": "2001-2005", "value": 73.6 },
+        { "period": "2006-2010", "value": 78.5 },
+        { "period": "2018-2022", "value": 87.3 }
+      ]
+    }
+  },
+  "highlights": {
+    "biggestImprovement": {
+      "category": "전립선암",
+      "from": 59.2,
+      "to": 96.4,
+      "change": 37.2,
+      "description": "1993-1995년 59.2%에서 2018-2022년 96.4%로 37.2%p 향상. 조기검진 확대와 치료기술 발전으로 세계적 수준의 생존율 달성"
+    },
+    "mostDramatic": {
+      "category": "폐암",
+      "from": 12.5,
+      "to": 40.6,
+      "changePercent": 225,
+      "description": "1993-1995년 12.5%에서 2018-2022년 40.6%로 3.2배 이상 향상. 표적치료제와 면역항암제 도입으로 극적인 개선"
+    },
+    "stillChallenging": {
+      "category": "췌장암",
+      "rate": 16.5,
+      "description": "2018-2022년 기준 16.5%로 여전히 낮은 생존율. 조기발견이 어렵고 공격적인 특성으로 치료가 어려움"
+    },
+    "overallProgress": {
+      "from": 41.2,
+      "to": 72.9,
+      "change": 31.7,
+      "description": "전체 암 5년 생존율이 30년간 31.7%p 향상되어 10명 중 7명이 5년 이상 생존"
+    }
+  },
+  "keyInsights": [
+    {
+      "icon": "TrendingUp",
+      "title": "30년간 31.7%p 생존율 향상",
+      "description": "1993-1995년 41.2%에서 2018-2022년 72.9%로 지속적 개선. 국가암관리사업과 의료기술 발전의 성과"
+    },
+    {
+      "icon": "Award",
+      "title": "세계적 수준의 암 생존율",
+      "description": "갑상선암 100.1%, 전립선암 96.4%, 유방암 94.3%로 선진국 수준 달성"
+    },
+    {
+      "icon": "Zap",
+      "title": "난치성 암의 극적 개선",
+      "description": "폐암 28.1%p, 위암 34.5%p, 간암 27.6%p 향상. 표적치료제와 면역항암제의 혁신"
+    },
+    {
+      "icon": "Users",
+      "title": "암 유병자 259만 명 시대",
+      "description": "2022년 기준 전국민의 5%가 암 유병자. 61.3%는 5년 이상 생존한 장기 생존자"
+    },
+    {
+      "icon": "Eye",
+      "title": "조기검진의 중요성",
+      "description": "국소 단계 발견시 92.1% 생존, 원격전이시 27.1% 생존. 조기발견이 생존율의 핵심"
+    },
+    {
+      "icon": "AlertCircle",
+      "title": "여전한 도전과제",
+      "description": "췌장암(16.5%), 담낭암(29.4%), 간암(39.4%), 폐암(40.6%)은 지속적 연구 필요"
+    }
+  ],
+  "statistics": {
+    "recordCount": 54,
+    "timeSpan": "1993-2022",
+    "categories": [
+      "갑상선암",
+      "전립선암",
+      "유방암",
+      "위암",
+      "대장암",
+      "폐암",
+      "간암",
+      "췌장암",
+      "신장암"
+    ],
+    "dataPoints": {
+      "timePeriods": 6,
+      "cancerTypes": 9,
+      "totalDataPoints": 54
+    },
+    "improvement": {
+      "overall": {
+        "period": "1993-1995 → 2018-2022",
+        "from": 41.2,
+        "to": 72.9,
+        "change": 31.7,
+        "percentIncrease": 77.0
+      },
+      "top3Improvements": [
+        {
+          "cancer": "전립선암",
+          "change": 37.2,
+          "from": 59.2,
+          "to": 96.4
+        },
+        {
+          "cancer": "위암",
+          "change": 34.5,
+          "from": 43.9,
+          "to": 78.4
+        },
+        {
+          "cancer": "폐암",
+          "change": 28.1,
+          "from": 12.5,
+          "to": 40.6
+        }
+      ]
+    }
+  },
+  "milestones": [
+    {
+      "year": "1996",
+      "event": "국가암관리사업 출범",
+      "impact": "체계적 암 관리 시작"
+    },
+    {
+      "year": "2001-2005",
+      "event": "5년 생존율 50% 돌파",
+      "impact": "암 생존율 50% 시대 진입"
+    },
+    {
+      "year": "2006",
+      "event": "국가암검진사업 확대",
+      "impact": "조기검진을 통한 생존율 향상"
+    },
+    {
+      "year": "2011-2015",
+      "event": "5년 생존율 70% 돌파",
+      "impact": "선진국 수준 생존율 달성"
+    },
+    {
+      "year": "2018-2022",
+      "event": "5년 생존율 72.9% 달성",
+      "impact": "10명 중 7명 생존 시대"
+    }
+  ],
+  "sources": [
+    {
+      "name": "국가암정보센터 - 5년 상대생존율",
+      "url": "https://www.cancer.go.kr/lay1/S1T648C650/contents.do",
+      "type": "primary"
+    },
+    {
+      "name": "보건복지부 - 2022년 국가암등록통계",
+      "url": "https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1484074",
+      "type": "primary"
+    },
+    {
+      "name": "중앙암등록본부 - 암등록통계",
+      "url": "https://www.cancerdata.re.kr/surveillance/data?menuId=46",
+      "type": "primary"
+    },
+    {
+      "name": "e-나라지표 - 암 발생 및 사망 현황",
+      "url": "https://www.index.go.kr/unity/potal/main/EachDtlPageDetail.do?idx_cd=2770",
+      "type": "secondary"
+    },
+    {
+      "name": "보건복지부 - 암유병자 100만명 시대 통계",
+      "url": "https://mohw.go.kr/board.es?act=view&bid=0027&list_no=280286",
+      "type": "historical"
+    }
+  ],
+  "methodology": {
+    "survivalRateDefinition": "5년 상대생존율은 암환자의 5년 관찰생존율을 일반인 5년 기대생존율로 나눈 값으로, 일반인과 비교하여 암환자가 5년간 생존할 확률을 의미",
+    "dataCollection": "암관리법 제14조에 근거하여 의료기관의 진료기록을 바탕으로 암환자 자료 수집 및 분석",
+    "updateFrequency": "매년 발표 (약 3년 시차)",
+    "coverage": "전국 의료기관 대상 전수조사"
+  },
+  "notes": {
+    "dataValidation": "모든 데이터는 국립암센터 중앙암등록본부와 보건복지부 공식 발표 자료를 기반으로 검증됨",
+    "thyroidCancerNote": "갑상선암 생존율 100.1%는 5년 상대생존율이 일반인구 기대생존율보다 높다는 의미 (과잉진단 논란 있음)",
+    "dataCoverage": "1993-1995년부터 2018-2022년까지 약 30년간의 시계열 데이터",
+    "missingPeriods": "1996-2000년과 2011-2015년의 암종별 상세 데이터는 일부 암종에 대해 제한적"
+  }
+}

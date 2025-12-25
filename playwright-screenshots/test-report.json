@@ -1,0 +1,176 @@
+{
+  "results": [
+    {
+      "step": "Page Navigation",
+      "status": "pass",
+      "message": "Successfully navigated to the page",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\01-hero-section.png"
+    },
+    {
+      "step": "Hero Section AnimatedNumbers",
+      "status": "pass",
+      "message": "Found 4 stat cards. Values: 5-10%, 40%, 8.6%, 10-15년",
+      "details": {
+        "heroStats": [
+          {
+            "value": "5-10%",
+            "text": "선종 → 암 진행률"
+          },
+          {
+            "value": "40%",
+            "text": "2cm+ 용종 암 위험"
+          },
+          {
+            "value": "8.6%",
+            "text": "융모선종 10년 암 발생률"
+          },
+          {
+            "value": "10-15년",
+            "text": "예방 가능 시간"
+          }
+        ],
+        "missingValues": []
+      }
+    },
+    {
+      "step": "Scroll Step: intro-donut",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 1000",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-01-intro-donut.png"
+    },
+    {
+      "step": "Scroll Step: step-1-30percent",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 1800",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-02-step-1-30percent.png"
+    },
+    {
+      "step": "Scroll Step: step-2-5-10percent",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 2600",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-03-step-2-5-10percent.png"
+    },
+    {
+      "step": "Scroll Step: step-3-classification",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 3400",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-04-step-3-classification.png"
+    },
+    {
+      "step": "Scroll Step: step-4-polyp-risk-tubular",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 4200",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-05-step-4-polyp-risk-tubular.png"
+    },
+    {
+      "step": "Scroll Step: step-5-polyp-risk-villous",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 5000",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-06-step-5-polyp-risk-villous.png"
+    },
+    {
+      "step": "Scroll Step: step-6-size-risk",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 5800",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-07-step-6-size-risk.png"
+    },
+    {
+      "step": "Scroll Step: step-7-serrated-warning",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 6600",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-08-step-7-serrated-warning.png"
+    },
+    {
+      "step": "Scroll Step: step-8-timeline-risk",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 7400",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-09-step-8-timeline-risk.png"
+    },
+    {
+      "step": "Scroll Step: step-9-prevention",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 8200",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-10-step-9-prevention.png"
+    },
+    {
+      "step": "Scroll Step: step-10-schedule",
+      "status": "pass",
+      "message": "Captured screenshot at scroll position 9000",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\02-scroll-11-step-10-schedule.png"
+    },
+    {
+      "step": "D3 Charts Detection",
+      "status": "pass",
+      "message": "Found 1 chart SVGs with visual elements",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\03-d3-charts-area.png",
+      "details": [
+        {
+          "hasBars": true,
+          "hasLines": true,
+          "hasCircles": false,
+          "hasText": true,
+          "width": 672,
+          "height": 448,
+          "class": "w-full h-auto"
+        }
+      ]
+    },
+    {
+      "step": "PolypRiskChart Check",
+      "status": "warning",
+      "message": "Found 3 potential bar elements",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\04-polyp-risk-chart.png",
+      "details": {
+        "totalRects": 7,
+        "potentialBars": 3,
+        "hasBarChart": false
+      }
+    },
+    {
+      "step": "SizeRiskChart Check",
+      "status": "warning",
+      "message": "Vertical bars: false, Gradients: false",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\05-size-risk-chart.png",
+      "details": {
+        "hasVerticalBars": false,
+        "hasGradients": false
+      }
+    },
+    {
+      "step": "TimelineRiskChart Check",
+      "status": "warning",
+      "message": "Line path: false, Area fill: false, Data points: false",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\06-timeline-risk-chart.png",
+      "details": {
+        "hasLinePath": false,
+        "hasAreaPath": false,
+        "hasDataPoints": false
+      }
+    },
+    {
+      "step": "Design Evaluation",
+      "status": "pass",
+      "message": "Design analysis completed",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\09-full-page.png",
+      "details": {
+        "uniqueColors": 42,
+        "spacingVariants": 7,
+        "responsiveElements": 22,
+        "animatedElements": 25,
+        "hasScrollIndicator": false,
+        "hasShadows": 15
+      }
+    },
+    {
+      "step": "Mobile Responsiveness",
+      "status": "pass",
+      "message": "Mobile view captured successfully",
+      "screenshot": "C:\\grum_code\\fact-check\\playwright-screenshots\\10-mobile-hero.png"
+    }
+  ],
+  "summary": {
+    "passCount": 16,
+    "failCount": 0,
+    "warningCount": 3
+  }
+}

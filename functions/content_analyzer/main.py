@@ -1,7 +1,9 @@
 """
-SPEC-003: Content Analyzer Cloud Run Service
+SPEC-003/006: Content Analyzer Cloud Run Service
 
-A/B 테스트 완료 후 Claude Code CLI를 사용하여 분석하고 패턴을 추출합니다.
+콘텐츠 분석 시스템:
+- SPEC-003: A/B 테스트 분석 (동일 주제, 다른 표현)
+- SPEC-006: 주제 패턴 실험 분석 (다른 주제/카테고리 비교) - 주요 사용
 
 인증 방식:
 - Claude Code OAuth Token (구독 기반)
@@ -10,6 +12,13 @@ A/B 테스트 완료 후 Claude Code CLI를 사용하여 분석하고 패턴을 
 참고:
 - Cloud Function에서 Cloud Run으로 변경 (Docker 지원 필요)
 - ghcr.io/cabinlab/claude-code-sdk:python 이미지 사용
+
+주제 패턴 (SPEC-006):
+- pattern_a: 기존 상식 뒤집기
+- pattern_b: 좋아하는 것 + 두려움
+- pattern_c: SNS 트렌드
+- pattern_d: 오래된 상식 파괴
+- pattern_e: 수치 + 반전
 """
 
 import os
@@ -23,7 +32,21 @@ import pg8000
 from flask import Flask, request, jsonify
 
 from prompts import ANALYSIS_SYSTEM_PROMPT, format_analysis_prompt
+from prompts_topic_experiment import TOPIC_EXPERIMENT_SYSTEM_PROMPT, format_topic_experiment_prompt
 from prompt_updater import update_prompt_if_needed
+
+
+# ============================================
+# 주제 패턴 상수 (SPEC-006)
+# ============================================
+
+TOPIC_PATTERNS = {
+    "pattern_a": "기존 상식 뒤집기",
+    "pattern_b": "좋아하는 것 + 두려움",
+    "pattern_c": "SNS 트렌드",
+    "pattern_d": "오래된 상식 파괴",
+    "pattern_e": "수치 + 반전",
+}
 
 
 # ============================================
@@ -67,11 +90,13 @@ def get_db_connection():
 
 def get_unanalyzed_completed_tests(conn) -> List[Dict]:
     """
-    분석되지 않은 완료된 A/B 테스트 조회
+    분석되지 않은 완료된 A/B 테스트 조회 (DEPRECATED - ab_tests용)
 
     조건:
     - status = 'completed'
     - content_analysis에 해당 테스트의 분석 결과가 없음
+
+    Note: SPEC-006 이후 topic_experiments 사용 권장
     """
     cursor = conn.cursor()
     cursor.execute("""
@@ -115,6 +140,229 @@ def get_unanalyzed_completed_tests(conn) -> List[Dict]:
         })
 
     return tests
+
+
+# ============================================
+# SPEC-006: 주제 패턴 실험 데이터 조회
+# ============================================
+
+def get_running_topic_experiments(conn) -> List[Dict]:
+    """
+    진행 중인 주제 패턴 실험 조회
+
+    조건:
+    - status = 'running'
+    - 시작 후 test_duration_days 경과
+    """
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT
+            id,
+            name,
+            description,
+            prompt_version,
+            patterns_tested,
+            articles_per_pattern,
+            primary_metric,
+            test_duration_days,
+            started_at
+        FROM topic_experiments
+        WHERE status = 'running'
+          AND started_at + (test_duration_days || ' days')::INTERVAL <= NOW()
+        ORDER BY started_at ASC
+        LIMIT 5
+    """)
+
+    experiments = []
+    for row in cursor.fetchall():
+        experiments.append({
+            "id": str(row[0]),
+            "name": row[1],
+            "description": row[2],
+            "prompt_version": row[3],
+            "patterns_tested": row[4] if row[4] else [],
+            "articles_per_pattern": row[5],
+            "primary_metric": row[6],
+            "test_duration_days": row[7],
+            "started_at": row[8].isoformat() if row[8] else None,
+        })
+
+    return experiments
+
+
+def get_experiment_articles_by_pattern(conn, experiment_id: str) -> Dict[str, List[Dict]]:
+    """
+    실험에 포함된 글을 패턴별로 그룹화하여 조회
+
+    Returns:
+        Dict[pattern_group, List[article_data]]
+    """
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT
+            ea.pattern_group,
+            a.id,
+            a.slug,
+            a.title,
+            a.description,
+            a.sections,
+            a.topic_pattern,
+            a.topic_category,
+            ea.total_pageviews,
+            ea.avg_time_on_page,
+            ea.avg_bounce_rate,
+            ea.avg_scroll_depth,
+            ea.engagement_score
+        FROM experiment_articles ea
+        JOIN articles a ON a.id = ea.article_id
+        WHERE ea.experiment_id = %s
+        ORDER BY ea.pattern_group, a.created_at
+    """, (experiment_id,))
+
+    result = {}
+    for row in cursor.fetchall():
+        pattern_group = row[0]
+        if pattern_group not in result:
+            result[pattern_group] = []
+
+        result[pattern_group].append({
+            "id": str(row[1]),
+            "slug": row[2],
+            "title": row[3],
+            "description": row[4],
+            "sections": row[5] if row[5] else [],
+            "topic_pattern": row[6],
+            "topic_category": row[7],
+            "metrics": {
+                "total_pageviews": int(row[8]) if row[8] else 0,
+                "avg_time_on_page": float(row[9]) if row[9] else 0,
+                "avg_bounce_rate": float(row[10]) if row[10] else 0,
+                "avg_scroll_depth": float(row[11]) if row[11] else 0,
+                "engagement_score": float(row[12]) if row[12] else 0,
+            }
+        })
+
+    return result
+
+
+def update_experiment_article_metrics(conn, experiment_id: str) -> int:
+    """
+    실험에 포함된 글들의 메트릭을 최신 데이터로 업데이트
+
+    Returns:
+        int: 업데이트된 글 수
+    """
+    cursor = conn.cursor()
+
+    # 실험 시작일 조회
+    cursor.execute("""
+        SELECT started_at, test_duration_days FROM topic_experiments WHERE id = %s
+    """, (experiment_id,))
+    row = cursor.fetchone()
+    if not row:
+        return 0
+
+    started_at = row[0]
+    duration_days = row[1]
+
+    # 각 글의 메트릭 업데이트
+    cursor.execute("""
+        UPDATE experiment_articles ea
+        SET
+            total_pageviews = sub.total_pv,
+            avg_time_on_page = sub.avg_time,
+            avg_bounce_rate = sub.avg_bounce,
+            avg_scroll_depth = sub.avg_scroll,
+            engagement_score = sub.avg_engagement,
+            metrics_updated_at = NOW()
+        FROM (
+            SELECT
+                a.id as article_id,
+                COALESCE(SUM(m.pageviews), 0) as total_pv,
+                COALESCE(AVG(m.avg_time_on_page), 0) as avg_time,
+                COALESCE(AVG(m.bounce_rate), 0) as avg_bounce,
+                COALESCE(AVG(m.scroll_depth_avg), 0) as avg_scroll,
+                COALESCE(AVG(m.engagement_score), 0) as avg_engagement
+            FROM experiment_articles ea2
+            JOIN articles a ON a.id = ea2.article_id
+            LEFT JOIN article_metrics m ON m.article_slug = a.slug
+                AND m.date >= %s::date
+                AND m.date <= (%s::date + (%s || ' days')::INTERVAL)
+            WHERE ea2.experiment_id = %s
+            GROUP BY a.id
+        ) sub
+        WHERE ea.article_id = sub.article_id AND ea.experiment_id = %s
+    """, (started_at, started_at, duration_days, experiment_id, experiment_id))
+
+    updated_count = cursor.rowcount
+    conn.commit()
+
+    print(f"[Analyzer] 실험 {experiment_id}: {updated_count}개 글 메트릭 업데이트")
+    return updated_count
+
+
+def calculate_pattern_rankings(articles_by_pattern: Dict[str, List[Dict]], primary_metric: str) -> Dict:
+    """
+    패턴별 성과를 집계하고 순위 계산
+
+    Returns:
+        Dict: 패턴별 성과 및 순위 정보
+    """
+    pattern_stats = {}
+
+    for pattern_group, articles in articles_by_pattern.items():
+        if not articles:
+            continue
+
+        metrics = [a["metrics"] for a in articles]
+
+        # 집계
+        total_pv = sum(m["total_pageviews"] for m in metrics)
+        avg_time = sum(m["avg_time_on_page"] for m in metrics) / len(metrics)
+        avg_bounce = sum(m["avg_bounce_rate"] for m in metrics) / len(metrics)
+        avg_scroll = sum(m["avg_scroll_depth"] for m in metrics) / len(metrics)
+        avg_engagement = sum(m["engagement_score"] for m in metrics) / len(metrics)
+
+        pattern_stats[pattern_group] = {
+            "article_count": len(articles),
+            "total_pageviews": total_pv,
+            "avg_time_on_page": round(avg_time, 2),
+            "avg_bounce_rate": round(avg_bounce, 2),
+            "avg_scroll_depth": round(avg_scroll, 2),
+            "avg_engagement": round(avg_engagement, 2),
+            "pattern_name_ko": TOPIC_PATTERNS.get(pattern_group, pattern_group),
+        }
+
+    # 순위 계산 (primary_metric 기준 내림차순)
+    metric_key = "avg_engagement"  # 기본값
+    if primary_metric == "avg_time_on_page":
+        metric_key = "avg_time_on_page"
+    elif primary_metric == "scroll_depth_avg":
+        metric_key = "avg_scroll_depth"
+    elif primary_metric == "bounce_rate":
+        # 이탈률은 낮을수록 좋음
+        sorted_patterns = sorted(pattern_stats.keys(),
+                                  key=lambda p: pattern_stats[p]["avg_bounce_rate"])
+    else:
+        sorted_patterns = sorted(pattern_stats.keys(),
+                                  key=lambda p: pattern_stats[p][metric_key],
+                                  reverse=True)
+
+    if primary_metric != "bounce_rate":
+        sorted_patterns = sorted(pattern_stats.keys(),
+                                  key=lambda p: pattern_stats[p][metric_key],
+                                  reverse=True)
+
+    # 순위 추가
+    for rank, pattern in enumerate(sorted_patterns, 1):
+        pattern_stats[pattern]["rank"] = rank
+
+    return {
+        "pattern_stats": pattern_stats,
+        "ranking": sorted_patterns,
+        "winner": sorted_patterns[0] if sorted_patterns else None,
+        "primary_metric": primary_metric,
+    }
 
 
 def get_article_by_slug_version(conn, slug: str, version: str) -> Optional[Dict]:
@@ -384,6 +632,195 @@ def determine_confidence_level(test_count: int, win_rate: float) -> str:
 
 
 # ============================================
+# SPEC-006: 주제 패턴 실험 분석
+# ============================================
+
+def analyze_topic_experiment_with_claude(
+    experiment: Dict,
+    articles_by_pattern: Dict[str, List[Dict]],
+    rankings: Dict
+) -> Dict:
+    """
+    Claude Code CLI를 사용하여 주제 패턴 실험 분석
+
+    다른 주제/카테고리를 비교하여 어떤 패턴이 가장 효과적인지 분석
+
+    Returns:
+        Dict: 분석 결과 (winner_insights, recommendations, next_experiments)
+    """
+    if not CLAUDE_OAUTH_TOKEN:
+        raise ValueError("CLAUDE_CODE_OAUTH_TOKEN 환경 변수가 설정되지 않았습니다.")
+
+    # 프롬프트 구성
+    user_prompt = format_topic_experiment_prompt(
+        experiment_name=experiment["name"],
+        description=experiment.get("description", ""),
+        patterns_tested=experiment["patterns_tested"],
+        articles_by_pattern=articles_by_pattern,
+        rankings=rankings,
+        primary_metric=experiment["primary_metric"],
+    )
+
+    full_prompt = f"""{TOPIC_EXPERIMENT_SYSTEM_PROMPT}
+
+---
+
+{user_prompt}"""
+
+    print(f"[Analyzer] 주제 패턴 실험 분석 요청: {experiment['name']}")
+
+    # Claude Code CLI 호출
+    try:
+        result = subprocess.run(
+            [
+                "claude",
+                "-p", full_prompt,
+                "--output-format", "json"
+            ],
+            capture_output=True,
+            text=True,
+            timeout=180,  # 3분 타임아웃 (더 복잡한 분석)
+            env={**os.environ, "CLAUDE_CODE_OAUTH_TOKEN": CLAUDE_OAUTH_TOKEN}
+        )
+
+        if result.returncode != 0:
+            error_msg = result.stderr or result.stdout
+            raise RuntimeError(f"Claude CLI 실행 실패: {error_msg}")
+
+        cli_response = json.loads(result.stdout)
+        response_text = cli_response.get("result", "")
+
+        print(f"[Analyzer] Claude 응답 길이: {len(response_text)}")
+
+    except subprocess.TimeoutExpired:
+        raise RuntimeError("Claude CLI 타임아웃 (180초 초과)")
+    except json.JSONDecodeError as e:
+        print(f"[Analyzer] CLI 응답 파싱 오류: {e}")
+        raise RuntimeError(f"Claude CLI 응답 파싱 실패: {e}")
+
+    # 분석 결과 JSON 파싱
+    try:
+        json_match = re.search(r'```json\s*([\s\S]*?)\s*```', response_text)
+        if json_match:
+            analysis = json.loads(json_match.group(1))
+        else:
+            json_match = re.search(r'\{[\s\S]*\}', response_text)
+            if json_match:
+                analysis = json.loads(json_match.group())
+            else:
+                raise ValueError("JSON 형식을 찾을 수 없습니다")
+    except json.JSONDecodeError as e:
+        print(f"[Analyzer] JSON 파싱 오류: {e}")
+        raise ValueError(f"Claude 응답에서 JSON 추출 실패: {e}")
+
+    return analysis
+
+
+def complete_topic_experiment(conn, experiment_id: str, rankings: Dict, analysis: Dict):
+    """
+    주제 패턴 실험 완료 처리
+
+    - 실험 상태를 'completed'로 변경
+    - 결과 데이터 저장
+    - 승리 패턴 기록
+    """
+    cursor = conn.cursor()
+
+    winner_pattern = rankings.get("winner")
+    results_json = json.dumps({
+        "pattern_stats": rankings.get("pattern_stats", {}),
+        "ranking": rankings.get("ranking", []),
+        "primary_metric": rankings.get("primary_metric"),
+        "analysis": analysis,
+    })
+
+    cursor.execute("""
+        UPDATE topic_experiments
+        SET
+            status = 'completed',
+            ended_at = NOW(),
+            winner_pattern = %s,
+            results = %s,
+            analysis_notes = %s,
+            updated_at = NOW()
+        WHERE id = %s
+    """, (
+        winner_pattern,
+        results_json,
+        analysis.get("summary", ""),
+        experiment_id
+    ))
+
+    conn.commit()
+    print(f"[Analyzer] 실험 완료: {experiment_id}, 승리 패턴: {winner_pattern}")
+
+
+def update_topic_pattern_insights(conn, analysis: Dict, experiment_id: str):
+    """
+    주제 패턴 분석 결과를 patterns 테이블에 반영
+
+    승리한 패턴의 신뢰도 향상
+    """
+    cursor = conn.cursor()
+
+    winner_insights = analysis.get("winner_insights", {})
+    winner_pattern = winner_insights.get("pattern")
+
+    if not winner_pattern:
+        return
+
+    # 주제 패턴을 patterns 테이블에 기록 (topic_pattern_type으로)
+    pattern_name = f"주제패턴: {TOPIC_PATTERNS.get(winner_pattern, winner_pattern)}"
+    description = winner_insights.get("why_successful", "")
+
+    # 기존 패턴 확인
+    cursor.execute("""
+        SELECT id, test_count, win_count
+        FROM patterns
+        WHERE topic_pattern_type = %s
+    """, (winner_pattern,))
+
+    existing = cursor.fetchone()
+
+    if existing:
+        # 기존 패턴 업데이트
+        pattern_id = str(existing[0])
+        test_count = int(existing[1]) + 1
+        win_count = int(existing[2]) + 1
+        win_rate = (win_count / test_count) * 100
+        confidence = determine_confidence_level(test_count, win_rate)
+
+        cursor.execute("""
+            UPDATE patterns
+            SET
+                test_count = %s,
+                win_count = %s,
+                win_rate = %s,
+                confidence_level = %s,
+                description = %s,
+                updated_at = NOW()
+            WHERE id = %s
+        """, (test_count, win_count, win_rate, confidence, description, pattern_id))
+
+        print(f"[Analyzer] 주제 패턴 업데이트: {pattern_name} (confidence={confidence})")
+    else:
+        # 새 패턴 생성
+        cursor.execute("""
+            INSERT INTO patterns (
+                name, category, description, topic_pattern_type,
+                confidence_level, test_count, win_count, win_rate
+            ) VALUES (
+                %s, 'topic', %s, %s,
+                'EXPERIMENTAL', 1, 1, 100.0
+            )
+        """, (pattern_name, description, winner_pattern))
+
+        print(f"[Analyzer] 새 주제 패턴 생성: {pattern_name}")
+
+    conn.commit()
+
+
+# ============================================
 # 분석 결과 저장
 # ============================================
 
@@ -535,6 +972,196 @@ def analyze_completed_tests():
 def health_check():
     """Cloud Run 헬스체크"""
     return jsonify({"status": "healthy", "service": "content-analyzer"}), 200
+
+
+# ============================================
+# SPEC-006: 주제 패턴 실험 엔드포인트
+# ============================================
+
+@app.route("/analyze-experiments", methods=["GET", "POST"])
+def analyze_topic_experiments():
+    """
+    완료된 주제 패턴 실험을 분석하는 엔드포인트
+
+    SPEC-006: 다른 주제/카테고리를 비교하여 어떤 패턴이 가장 효과적인지 평가
+
+    기존 /analyze와 병행 실행됨 (Cloud Scheduler에서 둘 다 호출 가능)
+    """
+    try:
+        print("[Analyzer] 주제 패턴 실험 분석 시작...")
+
+        conn = get_db_connection()
+
+        # 1. 완료 대기 중인 실험 조회
+        experiments = get_running_topic_experiments(conn)
+        print(f"[Analyzer] {len(experiments)}개 실험 분석 대기")
+
+        if len(experiments) == 0:
+            conn.close()
+            return json.dumps({
+                "status": "success",
+                "message": "분석할 주제 패턴 실험 없음",
+                "analyzed": []
+            }), 200
+
+        results = []
+
+        for experiment in experiments:
+            try:
+                # 2. 실험 글들의 메트릭 업데이트
+                update_experiment_article_metrics(conn, experiment["id"])
+
+                # 3. 패턴별 글 조회
+                articles_by_pattern = get_experiment_articles_by_pattern(conn, experiment["id"])
+
+                if not articles_by_pattern:
+                    print(f"[Analyzer] 실험 {experiment['name']}: 글 없음")
+                    continue
+
+                # 4. 패턴별 순위 계산
+                rankings = calculate_pattern_rankings(
+                    articles_by_pattern,
+                    experiment["primary_metric"]
+                )
+
+                # 5. Claude 분석
+                analysis = analyze_topic_experiment_with_claude(
+                    experiment,
+                    articles_by_pattern,
+                    rankings
+                )
+
+                # 6. 실험 완료 처리
+                complete_topic_experiment(conn, experiment["id"], rankings, analysis)
+
+                # 7. 주제 패턴 인사이트 저장
+                update_topic_pattern_insights(conn, analysis, experiment["id"])
+
+                results.append({
+                    "experiment_id": experiment["id"],
+                    "experiment_name": experiment["name"],
+                    "winner_pattern": rankings.get("winner"),
+                    "winner_name_ko": TOPIC_PATTERNS.get(rankings.get("winner"), ""),
+                    "ranking": rankings.get("ranking", []),
+                    "summary": analysis.get("summary", ""),
+                })
+
+            except Exception as e:
+                print(f"[Analyzer] 실험 분석 실패 ({experiment['name']}): {e}")
+                import traceback
+                print(traceback.format_exc())
+                results.append({
+                    "experiment_id": experiment["id"],
+                    "experiment_name": experiment["name"],
+                    "error": str(e),
+                })
+
+        # 8. 프롬프트 자동 업데이트
+        try:
+            prompt_result = update_prompt_if_needed(conn)
+            print(f"[Analyzer] 프롬프트 업데이트: {prompt_result}")
+        except Exception as e:
+            print(f"[Analyzer] 프롬프트 업데이트 실패: {e}")
+
+        conn.close()
+
+        return json.dumps({
+            "status": "success",
+            "analyzed_count": len([r for r in results if "error" not in r]),
+            "error_count": len([r for r in results if "error" in r]),
+            "results": results
+        }), 200
+
+    except Exception as e:
+        import traceback
+        error_msg = f"[Analyzer] 주제 패턴 실험 분석 오류: {str(e)}"
+        print(error_msg)
+        print(traceback.format_exc())
+        return json.dumps({"status": "error", "message": str(e)}), 500
+
+
+@app.route("/create-experiment", methods=["POST"])
+def create_topic_experiment():
+    """
+    새 주제 패턴 실험 생성
+
+    Request Body:
+    {
+        "name": "2024-12 주제 패턴 비교 #1",
+        "description": "상식 뒤집기 vs SNS 트렌드 비교",
+        "patterns": ["pattern_a", "pattern_c"],
+        "prompt_version": "v1.0",
+        "articles_per_pattern": 2,
+        "test_duration_days": 6,
+        "article_ids": {
+            "pattern_a": ["uuid1", "uuid2"],
+            "pattern_c": ["uuid3", "uuid4"]
+        }
+    }
+    """
+    try:
+        data = request.get_json()
+
+        if not data:
+            return jsonify({"status": "error", "message": "요청 데이터 없음"}), 400
+
+        name = data.get("name")
+        patterns = data.get("patterns", [])
+        article_ids_map = data.get("article_ids", {})
+
+        if not name or not patterns:
+            return jsonify({"status": "error", "message": "name과 patterns 필수"}), 400
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # 실험 생성
+        cursor.execute("""
+            INSERT INTO topic_experiments (
+                name, description, prompt_version, patterns_tested,
+                articles_per_pattern, test_duration_days, status, started_at
+            ) VALUES (
+                %s, %s, %s, %s, %s, %s, 'running', NOW()
+            )
+            RETURNING id
+        """, (
+            name,
+            data.get("description", ""),
+            data.get("prompt_version", "v1.0"),
+            patterns,
+            data.get("articles_per_pattern", 2),
+            data.get("test_duration_days", 6),
+        ))
+
+        experiment_id = str(cursor.fetchone()[0])
+
+        # 글 매핑
+        article_count = 0
+        for pattern, article_ids in article_ids_map.items():
+            for article_id in article_ids:
+                cursor.execute("""
+                    INSERT INTO experiment_articles (experiment_id, article_id, pattern_group)
+                    VALUES (%s, %s, %s)
+                    ON CONFLICT (experiment_id, article_id) DO NOTHING
+                """, (experiment_id, article_id, pattern))
+                article_count += 1
+
+        conn.commit()
+        conn.close()
+
+        return jsonify({
+            "status": "success",
+            "experiment_id": experiment_id,
+            "name": name,
+            "patterns": patterns,
+            "article_count": article_count,
+        }), 201
+
+    except Exception as e:
+        import traceback
+        print(f"[Analyzer] 실험 생성 오류: {e}")
+        print(traceback.format_exc())
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 
 # ============================================

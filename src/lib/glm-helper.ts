@@ -37,13 +37,22 @@ export async function generateGLMContent(
   }
 }
 
+interface ChatMessage {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+}
+
+interface StreamChunk {
+  choices?: Array<{ delta?: { content?: string } }>;
+}
+
 export async function streamGLMChat(
-  messages: any[],
+  messages: ChatMessage[],
   options: {
     temperature?: number;
     maxTokens?: number;
   } = {}
-): Promise<AsyncGenerator<any>> {
+): Promise<AsyncGenerator<StreamChunk>> {
   try {
     const client = new GLMClient();
     return await client.chatStream({
