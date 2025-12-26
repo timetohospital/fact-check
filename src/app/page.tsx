@@ -10,38 +10,6 @@ const CATEGORY_COLORS: Record<string, { bg: string; accent: string }> = {
   default: { bg: "#f9e8e2", accent: "#d99a8a" },        // 핑크
 };
 
-// Interactive Content Data
-const INTERACTIVE_CONTENTS = [
-  {
-    slug: "cancer-survival",
-    title: "30년간의 기적: 한국 암 생존율 변화",
-    description: "1993년부터 현재까지 한국 암 치료의 놀라운 발전을 인터랙티브 차트로 확인하세요.",
-    category: "암 통계",
-    color: "#3B82F6",
-  },
-  {
-    slug: "anticancer-generations",
-    title: "항암제의 진화: 1세대부터 4세대까지",
-    description: "세포독성 항암제부터 면역항암제까지, 항암 치료의 역사를 탐험하세요.",
-    category: "항암 치료",
-    color: "#10B981",
-  },
-  {
-    slug: "colon-polyp-cancer-risk",
-    title: "대장 용종과 암 위험도",
-    description: "용종 유형별 암 발생 위험도와 검진 주기를 알아보세요.",
-    category: "대장암",
-    color: "#F59E0B",
-  },
-  {
-    slug: "cancer-survival-v2",
-    title: "암 생존율 비교 분석",
-    description: "암종별 생존율을 직접 비교하고 분석해보세요.",
-    category: "암 통계",
-    color: "#8B5CF6",
-  },
-];
-
 // Hero Article Component - Image background with text overlay
 function HeroArticle({ article }: { article: Article }) {
   return (
@@ -228,121 +196,6 @@ function SectionHeader({ title }: { title: string }) {
         {title}
       </h2>
     </div>
-  );
-}
-
-// Interactive Content Card - Gradient background with chart icon
-function InteractiveCard({ content }: { content: typeof INTERACTIVE_CONTENTS[0] }) {
-  return (
-    <article style={{ flexShrink: 0, width: "280px", height: "350px" }}>
-      <Link href={`/interactive/${content.slug}`} style={{ textDecoration: "none" }}>
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            height: "100%",
-            background: `linear-gradient(135deg, ${content.color}15 0%, ${content.color}30 100%)`,
-            border: `1px solid ${content.color}40`,
-            overflow: "hidden",
-            transition: "all 0.3s ease",
-          }}
-          className="interactive-card"
-        >
-          {/* Interactive Badge */}
-          <div
-            style={{
-              position: "absolute",
-              top: "1rem",
-              right: "1rem",
-              padding: "0.25rem 0.75rem",
-              backgroundColor: content.color,
-              color: "#ffffff",
-              fontSize: "0.625rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              borderRadius: "9999px",
-            }}
-          >
-            Interactive
-          </div>
-
-          {/* Chart Icon */}
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -70%)",
-              opacity: 0.15,
-            }}
-          >
-            <svg width="120" height="120" viewBox="0 0 24 24" fill={content.color}>
-              <path d="M3 3v18h18v-2H5V3H3zm16 6h-2v8h2V9zm-4-2h-2v10h2V7zm-4 4h-2v6h2v-6zm-4 2H5v4h2v-4z"/>
-            </svg>
-          </div>
-
-          {/* Text Content */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              padding: "1.25rem",
-            }}
-          >
-            {/* Category */}
-            <span
-              style={{
-                fontSize: "0.625rem",
-                fontWeight: 800,
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                color: content.color,
-              }}
-            >
-              {content.category}
-            </span>
-
-            {/* Title */}
-            <h3
-              style={{
-                fontFamily: "'Noto Serif KR', serif",
-                fontSize: "1.125rem",
-                fontWeight: 700,
-                lineHeight: 1.35,
-                color: "#1a1a1a",
-                marginTop: "0.5rem",
-                marginBottom: "0.5rem",
-                display: "-webkit-box",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              }}
-            >
-              {content.title}
-            </h3>
-
-            {/* Description */}
-            <p
-              style={{
-                fontSize: "0.8rem",
-                lineHeight: 1.5,
-                color: "#666",
-                display: "-webkit-box",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-                margin: 0,
-              }}
-            >
-              {content.description}
-            </p>
-          </div>
-        </div>
-      </Link>
-    </article>
   );
 }
 
@@ -591,6 +444,7 @@ export default async function HomePage() {
   const overlayCards = articles.slice(1, 4); // 3 cards for overlay row (changed from 5)
   const columnArticles = articles.slice(0, 5); // Articles for column-style cards
   const factcheckArticles = articles.slice(0, 6); // More articles for slider
+  const healthInfoArticles = articles.slice(0, 6); // More articles for slider
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -674,25 +528,27 @@ export default async function HomePage() {
               </div>
             </section>
 
-            {/* Interactive Content Section */}
-            <section style={{ padding: "0 1rem" }}>
-              <SectionHeader title="건강정보" />
-              <div
-                style={{
-                  display: "flex",
-                  gap: "1rem",
-                  overflowX: "auto",
-                  scrollbarWidth: "none",
-                  msOverflowStyle: "none",
-                  paddingBottom: "1rem",
-                }}
-                className="hide-scrollbar"
-              >
-                {INTERACTIVE_CONTENTS.map((content) => (
-                  <InteractiveCard key={content.slug} content={content} />
-                ))}
-              </div>
-            </section>
+            {/* Health Info Section - Image Overlay Cards */}
+            {healthInfoArticles.length > 0 && (
+              <section style={{ padding: "0 1rem" }}>
+                <SectionHeader title="건강정보" />
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "1rem",
+                    overflowX: "auto",
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                    paddingBottom: "1rem",
+                  }}
+                  className="hide-scrollbar"
+                >
+                  {healthInfoArticles.map((article) => (
+                    <ImageOverlayCard key={`health-${article.slug}`} article={article} />
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Categories Section */}
             <section style={{ padding: "0 1rem" }}>
@@ -742,10 +598,6 @@ export default async function HomePage() {
         }
         .image-overlay-card {
           cursor: pointer;
-        }
-        .interactive-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
         }
         @media (max-width: 1024px) {
           .container section:nth-of-type(2) > div {
